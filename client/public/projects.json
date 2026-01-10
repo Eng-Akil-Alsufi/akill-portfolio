@@ -1,0 +1,274 @@
+[
+  {
+    "id": 1,
+    "name": "Project_web2_Travel",
+    "description": {
+      "en": "Reservation and travel project in the practical course in web technology",
+      "ar": "مشروع الحجز والسفر في المساق العملي لتكنولوجيا الويب"
+    },
+    "url": "https://github.com/Eng-Akil-Alsufi/Project_web2_Travel",
+    "languages": ["HTML", "CSS", "JavaScript"], 
+    "stars": 0,
+    "forks": 0,
+    "created_at": "2023-05-30T23:00:55Z",
+    "updated_at": "2025-12-27T03:16:00Z",
+    "topics": [],
+    "homepage": null,
+    "status": "✅"
+  },
+  {
+    "id": 2,
+    "name": "Task_Manager",
+    "description": {
+      "en": "A SaaS application for managing personal and team tasks with Agile Scrum, TDD, and BDD practices.",
+      "ar": "تطبيق SaaS لإدارة المهام الشخصية وفريق العمل باستخدام ممارسات Agile Scrum و TDD و BDD."
+    },
+    "url": "https://github.com/Eng-Akil-Alsufi/Task_Manager",
+    "languages": ["Ruby", "HTML", "CSS"],
+    "stars": 0,
+    "forks": 0,
+    "created_at": "2025-12-08T19:42:03Z",
+    "updated_at": "2025-12-16T21:09:07Z",
+    "topics": [],
+    "homepage": "",
+    "status": "✅"
+  },
+  {
+    "id": 3,
+    "name": "caesar-cipher-app",
+    "description": {
+      "en": "A simple web application for encrypting and decrypting messages using the Caesar Cipher algorithm",
+      "ar": "تطبيق ويب بسيط لتشفير وفك تشفير الرسائل باستخدام خوارزمية تشفير قيصر"
+    },
+    "url": "https://github.com/Eng-Akil-Alsufi/caesar-cipher-app",
+    "languages": ["CSS","JavaScript","HTML"],
+    "stars": 0,
+    "forks": 0,
+    "created_at": "2025-12-13T22:36:51Z",
+    "updated_at": "2025-12-13T23:04:02Z",
+    "topics": [],
+    "homepage": null,
+    "status": "✅"
+  },
+  {
+    "id": 4,
+    "name": "IMAGE_LAB",
+    "description": {
+      "en": "An advanced web-based system (Flask/Python) for analyzing and processing digital images, focusing on detecting image manipulation (using DCT algorithms and feature analysis), analyzing prominent colors, and improving image quality.",
+      "ar": "نظام متقدم قائم على الويب (Flask/Python) لتحليل ومعالجة الصور الرقمية، مع التركيز على كشف التلاعب بالصور (باستخدام خوارزميات DCT وتحليل الميزات)، وتحليل الألوان البارزة، وتحسين جودة الصور."
+    },
+    "url": "https://github.com/Eng-Akil-Alsufi/IMAGE_LAB",
+    "languages": ["HTML","CSS","Python"],
+    "stars": 0,
+    "forks": 0,
+    "created_at": "2025-12-27T00:43:51Z",
+    "updated_at": "2025-12-27T01:10:47Z",
+    "topics": [],
+    "homepage": null,
+    "status": "✅"
+  },
+  {
+    "id": 5,
+    "name": "FeelScan",
+    "description": {
+      "en": "FeelScan: An advanced AI-powered web application for Arabic/English sentiment analysis and facial emotion detection using Flask, BERT, and FER.",
+      "ar": "FeelScan: تطبيق ويب متقدم مدعوم بالذكاء الاصطناعي لتحليل المشاعر باللغتين العربية والإنجليزية وكشف انفعالات الوجه باستخدام Flask و BERT و FER."
+    },
+    "url": "https://github.com/Eng-Akil-Alsufi/FeelScan",
+    "languages": ["HTML","CSS","Python"],
+    "stars": 0,
+    "forks": 0,
+    "created_at": "2025-12-27T03:01:46Z",
+    "updated_at": "2025-12-27T03:04:06Z",
+    "topics": [],
+    "homepage": null,
+    "status": "✅"
+  },
+  {
+    "id": 6,
+    "name": "appointment_system",
+    "description": {
+      "en": "A comprehensive and user-friendly Appointment Booking System developed using PHP, MySQL, HTML, CSS, and JavaScript. This system facilitates seamless scheduling and management of appointments for both patients and administrative staff.",
+      "ar": "نظام حجز مواعيد شامل وسهل الاستخدام تم تطويره باستخدام PHP و MySQL و HTML و CSS و JavaScript. يسهل هذا النظام الجدولة والإدارة السلسة للمواعيد لكل من المرضى والموظفين الإداريين."
+    },
+    "url": "https://github.com/Eng-Akil-Alsufi/appointment_system",
+    "languages": ["PHP","CSS","JavaScript"],
+    "stars": 0,
+    "forks": 0,
+    "created_at": "2025-12-27T20:49:11Z",
+    "updated_at": "2025-12-27T21:18:21Z",
+    "topics": [],
+    "homepage": null,
+    "status": "✅"
+  },
+  {
+    "id": 7,
+    "name": "medical-supplies-management",
+    "description": {
+      "en": "A professional web-based Medical Supplies and Inventory Management System built with PHP and MySQL. Features include stock tracking, supplier management, request handling, and automated reporting with multi-languages support. Developed by Akil Alsufi.",
+      "ar": "نظام احترافي قائم على الويب لإدارة المستلزمات الطبية والمخزون تم بناؤه باستخدام PHP و MySQL. تشمل الميزات تتبع المخزون، وإدارة الموردين، ومعالجة الطلبات، والتقارير الآلية مع دعم لغات متعددة. تم تطويره بواسطة عقيل الصوفي."
+    },
+    "url": "https://github.com/Eng-Akil-Alsufi/medical-supplies-management",
+    "languages": ["PHP","CSS","JavaScript"],
+    "stars": 0,
+    "forks": 0,
+    "created_at": "2025-12-27T22:26:03Z",
+    "updated_at": "2025-12-27T22:38:50Z",
+    "topics": [],
+    "homepage": null,
+    "status": "✅"
+  },
+  {
+    "id": 8,
+    "name": "research-hub-flask",
+    "description": {
+      "en": "Research Hub: A comprehensive Flask-based web application for managing academic research papers, student projects, and departmental analytics with role-based access control.",
+      "ar": "Research Hub: تطبيق ويب شامل يعتمد على Flask لإدارة الأوراق البحثية الأكاديمية ومشاريع الطلاب وتحليلات الأقسام مع التحكم في الوصول القائم على الأدوار."
+    },
+    "url": "https://github.com/Eng-Akil-Alsufi/research-hub-flask",
+    "languages": ["HTML","Python","CSS","JavaScript"],
+    "stars": 0,
+    "forks": 0,
+    "created_at": "2025-12-28T20:40:16Z",
+    "updated_at": "2025-12-28T20:41:51Z",
+    "topics": [],
+    "homepage": null,
+    "status": "✅"
+  },
+  {
+    "id": 9,
+    "name": "smart-parking-flask",
+    "description": {
+      "en": "A smart parking management system built with Flask, featuring real-time slot tracking, automated booking, and an intuitive dashboard for efficient urban parking solutions.",
+      "ar": "نظام ذكي لإدارة مواقف السيارات تم بناؤه باستخدام Flask، يتميز بتتبع المواقف في الوقت الفعلي، والحجز الآلي، ولوحة تحكم بديهية لحلول مواقف السيارات الحضرية الفعالة."
+    },
+    "url": "https://github.com/Eng-Akil-Alsufi/smart-parking-flask",
+    "languages": ["HTML","Python","CSS","JavaScript"],
+    "stars": 0,
+    "forks": 0,
+    "created_at": "2025-12-28T21:55:10Z",
+    "updated_at": "2025-12-28T22:07:56Z",
+    "topics": [],
+    "homepage": null,
+    "status": "✅"
+  },
+  {
+    "id": 10,
+    "name": "YouthConf-Management-System",
+    "description": {
+      "en": "A comprehensive management system for the Youth Development Conference, featuring PERT time calculation, Gantt charts for scheduling, and an automated attendee registration and certificate issuance system.",
+      "ar": "نظام إدارة شامل لمؤتمر تنمية الشباب، يتميز بحساب وقت PERT، ومخططات Gantt للجدولة، ونظام آلي لتسجيل الحضور وإصدار الشهادات."
+    },
+    "url": "https://github.com/Eng-Akil-Alsufi/YouthConf-Management-System",
+    "languages": ["CSS","HTML","JavaScript"],
+    "stars": 0,
+    "forks": 0,
+    "created_at": "2025-12-29T22:36:52Z",
+    "updated_at": "2025-12-29T22:54:43Z",
+    "topics": [],
+    "homepage": null,
+    "status": "✅"
+  },
+  {
+    "id": 11,
+    "name": "text_translator",
+    "description": {
+      "en": "A simple web application for instant text translation between multiple languagess. It features a clean user interface, automatic text direction adjustment, and options to copy or download your translations.",
+      "ar": "تطبيق ويب بسيط للترجمة الفورية للنصوص بين لغات متعددة. يتميز بواجهة مستخدم نظيفة، وتعديل تلقائي لاتجاه النص، وخيارات لنسخ أو تنزيل ترجماتك."
+    },
+    "url": "https://github.com/Eng-Akil-Alsufi/text_translator",
+    "languages": ["HTML","CSS","JavaScript"],
+    "stars": 0,
+    "forks": 0,
+    "created_at": "2025-12-30T01:07:00Z",
+    "updated_at": "2025-12-30T01:30:09Z",
+    "topics": [],
+    "homepage": null,
+    "status": "✅"
+  },
+  {
+    "id": 12,
+    "name": "EmployeeManagementSystem",
+    "description": {
+      "en": "Employee Management System built with Java Swing and MySQL, featuring full CRUD operations and a user-friendly graphical interface.",
+      "ar": "نظام إدارة الموظفين تم بناؤه باستخدام Java Swing و MySQL، يتميز بعمليات CRUD الكاملة وواجهة رسومية سهلة الاستخدام."
+    },
+    "url": "https://github.com/Eng-Akil-Alsufi/EmployeeManagementSystem",
+    "languages": ["Java"],
+    "stars": 0,
+    "forks": 0,
+    "created_at": "2026-01-01T22:34:47Z",
+    "updated_at": "2026-01-01T22:58:39Z",
+    "topics": [],
+    "homepage": "",
+    "status": "✅"
+  },
+  {
+    "id": 13,
+    "name": "ClientServerChatApp_Project",
+    "description": {
+      "en": "A real-time Client-Server Chat Application built with Java, utilizing Socket Programming and Multi-threading to enable seamless communication between multiple clients and a central server.",
+      "ar": "تطبيق دردشة بين العميل والخادم في الوقت الفعلي تم بناؤه باستخدام Java، باستخدام برمجة المقابس وتعدد الخيوط لتمكين الاتصال السلس بين عملاء متعددين وخادم مركزي."
+    },
+    "url": "https://github.com/Eng-Akil-Alsufi/ClientServerChatApp_Project",
+    "languages": ["Java"],
+    "stars": 0,
+    "forks": 0,
+    "created_at": "2026-01-01T23:21:21Z",
+    "updated_at": "2026-01-01T23:29:04Z",
+    "topics": [],
+    "homepage": null,
+    "status": "✅"
+  },
+  {
+    "id": 14,
+    "name": "medical_expert_system",
+    "description": {
+      "en": "A rule-based Medical Diagnosis Expert System developed in Prolog, featuring interactive symptom analysis, confidence scoring, and logical inference for common illnesses.",
+      "ar": "نظام خبير للتشخيص الطبي القائم على القواعد تم تطويره في Prolog، يتميز بتحليل تفاعلي للأعراض، وتسجيل الثقة، والاستدلال المنطقي للأمراض الشائعة."
+    },
+    "url": "https://github.com/Eng-Akil-Alsufi/medical_expert_system",
+    "languages": ["Prolog"],
+    "stars": 0,
+    "forks": 0,
+    "created_at": "2026-01-04T21:42:22Z",
+    "updated_at": "2026-01-04T22:15:02Z",
+    "topics": [],
+    "homepage": "",
+    "status": "✅"
+  },
+  {
+    "id": 15,
+    "name": "AI-Python-Games",
+    "description": {
+      "en": "A collection of AI-powered Python games including 8-Puzzle and Tic-Tac-Toe, featuring search algorithms and a graphical interface built with Tkinter.",
+      "ar": "مجموعة من ألعاب بايثون المدعومة بالذكاء الاصطناعي بما في ذلك 8-Puzzle و Tic-Tac-Toe، وتتميز بخوارزميات البحث وواجهة رسومية مبنية باستخدام Tkinter."
+    },
+    "url": "https://github.com/Eng-Akil-Alsufi/AI-Python-Games",
+    "languages": ["Python"],
+    "stars": 0,
+    "forks": 0,
+    "created_at": "2026-01-04T22:27:10Z",
+    "updated_at": "2026-01-04T22:29:34Z",
+    "topics": [],
+    "homepage": null,
+    "status": "✅"
+  },
+  {
+    "id": 16,
+    "name": "Cafeteria-Management-System",
+    "description": {
+      "en": "A comprehensive Cafeteria Controlling System built with Java and MySQL, designed to streamline ordering, inventory management, and sales tracking with a professional graphical interface.",
+      "ar": "نظام تحكم شامل للكافتيريا تم بناؤه باستخدام Java و MySQL، مصمم لتبسيط الطلبات وإدارة المخزون وتتبع المبيعات بواجهة رسومية احترافية."
+    },
+    "url": "https://github.com/Eng-Akil-Alsufi/Cafeteria-Management-System",
+    "languages": ["Java"],
+    "stars": 0,
+    "forks": 0,
+    "created_at": "2026-01-04T23:31:15Z",
+    "updated_at": "2026-01-05T01:52:20Z",
+    "topics": [],
+    "homepage": null,
+    "status": "✅"
+  }
+]

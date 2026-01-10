@@ -1,0 +1,167 @@
+{
+  "personal": {
+    "name": {
+      "en": "Akill Talal Mahyoub Abdo",
+      "ar": "عقيل طلال مهيوب عبده"
+    },
+    "title": {
+      "en": "Software Engineer | Full-Stack Developer",
+      "ar": "مهندس برمجيات | مطور ويب متكامل"
+    },
+    "location": {
+      "en": "Taiz, Yemen",
+      "ar": "تعز، اليمن"
+    },
+    "email": "akilasofy2@gmail.com",
+    "phone": "776491972",
+    "whatsapp": "+967 7163 44592",
+    "bio": {
+      "en": "Specialized in Web Development (C# .NET 8.0, ASP.NET) and Cross-Platform Mobile Apps (Flutter). Expert in AI and Computer Vision with experience in YOLOv8 and OCR technologies.",
+      "ar": "مختص في تطوير الويب باستخدام (C# .NET 8.0-windows و ASP.NET) وأيضاً تطبيقات الموبايل باستخدام Flutter. خبير في مجال الذكاء الاصطناعي والرؤية الحاسوبية مع خبرة في YOLOv8 وتقنيات OCR."
+    },
+    "aboutMe": {
+      "en": "Software Engineer with a Bachelor's in Software Engineering from Taiz University. I have extensive experience in building scalable web applications, AI-driven systems, and cross-platform mobile apps. I am passionate about leveraging technology to solve real-world problems and creating user-centric designs.",
+      "ar": "مهندس برمجيات حاصل على درجة البكالوريوس في هندسة البرمجيات من جامعة تعز. لدي خبرة واسعة في بناء تطبيقات الويب القابلة للتوسع، وأنظمة الذكاء الاصطناعي، وتطبيقات الهاتف المحمول. شغوف بتسخير التكنولوجيا لحل مشكلات العالم الحقيقي وتصميم واجهات تركز على المستخدم."
+    },
+    "profileImage": "profile.png"
+  },
+  "social": {
+    "github": {
+      "username": "Eng-Akil-Alsufi",
+      "url": "https://github.com/Eng-Akil-Alsufi",
+      "icon": "Github"
+    },
+    "instagram": {
+      "username": "akiltalal",
+      "url": "https://www.instagram.com/akiltalal?igsh=aGRrNnB0NmtzMmFv",
+      "icon": "Instagram"
+    },
+    "facebook": {
+      "username": "Akill Talal",
+      "url": "https://www.facebook.com/share/1HTqkXea2y/",
+      "icon": "Facebook"
+    },
+    "linkedin": {
+      "username": "Akill Talal",
+      "url": "https://www.linkedin.com/in/akil-al-sufi-b5337a3a4/",
+      "icon": "Linkedin"
+    }
+  },
+  "education": [
+    {
+      "degree": { "en": "Bachelor of Software Engineering", "ar": "بكالوريوس هندسة برمجيات" },
+      "university": { "en": "Taiz University", "ar": "جامعة تعز" },
+      "college": { "en": "Al-Saeed College of Engineering and IT", "ar": "كلية السعيد للهندسة وتقنية المعلومات" },
+      "graduationDate": "2025"
+    }
+  ],
+  "languages": [
+    { "name": { "en": "Arabic", "ar": "العربية" }, "level": 100, "note": { "en": "Native", "ar": "اللغة الأم" } },
+    { "name": { "en": "English", "ar": "الإنجليزية" }, "level": 75, "note": { "en": "Professional", "ar": "احترافي" } }
+  ],
+  "certificates": [
+    {
+      "title": { "en": "AI & Machine Learning Certification", "ar": "شهادة في الذكاء الاصطناعي وتعلم الآلة" },
+      "issuer": "Google Career Certificates",
+      "date": "2023",
+      "link": "#"
+    }
+  ],
+  "skills": {
+    "ai_ml": [
+      { "name": "YOLOv8", "level": { "en": "Advanced", "ar": "متقدم" }, "color": "#00FFFF" },
+      { "name": "Tesseract OCR", "level": { "en": "Advanced", "ar": "متقدم" }, "color": "#FF00FF" },
+      { "name": "Computer Vision", "level": { "en": "Advanced", "ar": "متقدم" }, "color": "#00FF00" },
+      { "name": "Machine Learning", "level": { "en": "Advanced", "ar": "متقدم" }, "color": "#FFFF00" },
+      { "name": "OpenCV", "level": { "en": "Advanced", "ar": "متقدم" }, "color": "#FF4500" },
+      { "name": "Scikit-learn", "level": { "en": "Advanced", "ar": "متقدم" }, "color": "#F7931E" }
+    ],
+    "webDevelopment": [
+      { "name": "ASP.NET Core", "level": { "en": "Advanced", "ar": "متقدم" }, "color": "#512BD4" },
+      { "name": "C# (.NET 8.0)", "level": { "en": "Advanced", "ar": "متقدم" }, "color": "#239120" },
+      { "name": "Flutter", "level": { "en": "Advanced", "ar": "متقدم" }, "color": "#02569B" },
+      { "name": "Hotspot & Mikrotik", "level": { "en": "Expert", "ar": "خبير" }, "color": "#EE3124" },
+      { "name": "Guna.UI2 WinForms", "level": { "en": "Advanced", "ar": "متقدم" }, "color": "#FF6B6B" }
+    ],
+    "programmingLanguages": [
+      { "name": "Python", "level": { "en": "Advanced", "ar": "متقدم" }, "color": "#3776AB" },
+      { "name": "C#", "level": { "en": "Advanced", "ar": "متقدم" }, "color": "#239120" },
+      { "name": "JavaScript", "level": { "en": "Advanced", "ar": "متقدم" }, "color": "#F7DF1E" },
+      { "name": "Java", "level": { "en": "Advanced", "ar": "متقدم" }, "color": "#007396" }
+    ],
+    "databases": [
+      { "name": "SQL Server", "level": { "en": "Advanced", "ar": "متقدم" }, "color": "#CC2927" },
+      { "name": "MySQL", "level": { "en": "Advanced", "ar": "متقدم" }, "color": "#00758F" },
+      { "name": "Firebase", "level": { "en": "Intermediate", "ar": "متوسط" }, "color": "#FFCA28" }
+    ],
+    "libraries": [
+      { "name": "Pillow", "level": { "en": "Advanced", "ar": "متقدم" }, "color": "#3776AB" },
+      { "name": "NumPy", "level": { "en": "Advanced", "ar": "متقدم" }, "color": "#013243" },
+      { "name": "SciPy", "level": { "en": "Advanced", "ar": "متقدم" }, "color": "#8CAAE6" },
+      { "name": "Scikit-image", "level": { "en": "Advanced", "ar": "متقدم" }, "color": "#F7931E" }
+    ],
+    "tools": [
+      { "name": "Git", "level": { "en": "Advanced", "ar": "متقدم" }, "color": "#F1502F" },
+      { "name": "Visual Studio", "level": { "en": "Advanced", "ar": "متقدم" }, "color": "#5C2D91" },
+      { "name": "Figma", "level": { "en": "Advanced", "ar": "متقدم" }, "color": "#F24E1E" },
+      { "name": "Microsoft Project", "level": { "en": "Intermediate", "ar": "متوسط" }, "color": "#117DBA" },
+      { "name": "Azure", "level": { "en": "Beginner", "ar": "مبتدئ" }, "color": "#0078D4" }
+    ],
+    "frameworks": [
+      { "name": "Flask", "level": { "en": "Advanced", "ar": "متقدم" }, "color": "#000000" },
+      { "name": "Flutter", "level": { "en": "Advanced", "ar": "متقدم" }, "color": "#02569B" },
+      { "name": "Windows Forms", "level": { "en": "Advanced", "ar": "متقدم" }, "color": "#512BD4" },
+      { "name": "Entity Framework", "level": { "en": "Advanced", "ar": "متقدم" }, "color": "#512BD4" }
+    ]
+  },
+  "experience": [
+    {
+      "id": 1,
+      "title": { "en": "Software Development Intern", "ar": "متدرب في تطوير البرمجيات" },
+      "company": { "en": "Professional Experience", "ar": "خبرة مهنية" },
+      "duration": { "en": "Recent", "ar": "حديثاً" },
+      "description": {
+        "en": "Collaborated on a team to build an ASP.NET Core web app for inventory management",
+        "ar": "تعاونت مع فريق لبناء تطبيق ويب ASP.NET Core لإدارة المخزون"
+      },
+      "highlights": [
+        { "en": "Integrated RESTful APIs with SQL Server", "ar": "دمج واجهات برمجة التطبيقات RESTful مع SQL Server" },
+        { "en": "Utilized Microsoft Project to track sprint deliverables", "ar": "استخدام Microsoft Project لتتبع مخرجات العمل" },
+        { "en": "Implemented full CRUD operations", "ar": "تنفيذ عمليات CRUD الكاملة" }
+      ]
+    },
+    {
+      "id": 2,
+      "title": { "en": "Freelance Mobile Developer", "ar": "مطور تطبيقات هاتف مستقل" },
+      "company": { "en": "Independent", "ar": "مستقل" },
+      "duration": { "en": "Ongoing", "ar": "مستمر" },
+      "description": {
+        "en": "Developing cross-platform mobile applications",
+        "ar": "تطوير تطبيقات الهاتف المحمول عبر المنصات"
+      },
+      "highlights": [
+        { "en": "Flutter (iOS/Android)", "ar": "فلاتر (iOS/Android)" },
+        { "en": "Firebase Integration", "ar": "تكامل فايربيز" },
+        { "en": "User-centric app design", "ar": "تصميم تطبيقات يركز على المستخدم" }
+      ]
+    },
+    {
+      "id": 3,
+      "title": { "en": "Full-Stack Developer - Smart Traffic Management System", "ar": "مطور متكامل - نظام إدارة المرور الذكي" },
+      "company": { "en": "Academic Project", "ar": "مشروع أكاديمي" },
+      "duration": "2024-2025",
+      "description": {
+        "en": "Collaborated with a team of 6 developers in building an intelligent traffic management system",
+        "ar": "تعاونت مع فريق من 6 مطورين لبناء نظام ذكي لإدارة المرور"
+      },
+      "highlights": [
+        { "en": "Designed all system interfaces (Figma + Frontend)", "ar": "تصميم جميع واجهات النظام (Figma + Frontend)" },
+        { "en": "Implemented majority of backend logic", "ar": "تنفيذ معظم منطق الواجهة الخلفية" },
+        { "en": "Windows Forms .NET 8", "ar": "Windows Forms .NET 8" },
+        { "en": "SQL Server with stored procedures", "ar": "SQL Server مع الإجراءات المخزنة" },
+        { "en": "AI-powered vehicle detection from surveillance cameras", "ar": "كشف المركبات المدعوم بالذكاء الاصطناعي من كاميرات المراقبة" },
+        { "en": "Agile/Scrum methodology", "ar": "منهجية Agile/Scrum" }
+      ]
+    }
+  ]
+}
