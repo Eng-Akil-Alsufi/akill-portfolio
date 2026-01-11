@@ -163,7 +163,7 @@ export default function ExperienceSection() {
               </h4>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 {[
-                  { en: "Led a team of 6 developers in building an intelligent traffic management system", ar: "قيادة فريق من 6 مطورين لبناء نظام ذكي لإدارة المرور" },
+                  { en: "Collaborated with a team of 6 developers to build an intelligent traffic management system", ar: "العمل ضمن فريق مكوّن من 6 مطورين لبناء نظام ذكي لإدارة المرور" },
                   { en: "Designed and implemented 16+ diverse projects using multiple technologies", ar: "تصميم وتنفيذ أكثر من 16 مشروعاً متنوعاً باستخدام تقنيات متعددة" },
                   { en: "Proficient in Agile/Scrum methodologies and project management tools", ar: "إتقان منهجيات Agile/Scrum وأدوات إدارة المشاريع" },
                   { en: "Consistently delivering high-quality code with modern best practices", ar: "تقديم كود عالي الجودة باستمرار مع أفضل الممارسات الحديثة" }
