@@ -57,14 +57,14 @@
   ],
   "languages": [
     { "name": { "en": "Arabic", "ar": "العربية" }, "level": 100, "note": { "en": "Native", "ar": "اللغة الأم" } },
-    { "name": { "en": "English", "ar": "الإنجليزية" }, "level": 75, "note": { "en": "Professional", "ar": "احترافي" } }
+    { "name": { "en": "English", "ar": "الإنجليزية" }, "level": 60, "note": { "en": "Intermediate", "ar": "متوسط" } }
   ],
   "certificates": [
     {
       "title": { "en": "AI & Machine Learning Certification", "ar": "شهادة في الذكاء الاصطناعي وتعلم الآلة" },
-      "issuer": "Google Career Certificates",
-      "date": "2023",
-      "link": "#"
+      "issuer": "Google AI Essentials",
+      "date": "January 14, 2026",
+      "link": "https://coursera.org/share/ce901ac7e141794846f02fec573ae9b6"
     }
   ],
   "skills": {
@@ -111,7 +111,8 @@
       { "name": "Flask", "level": { "en": "Advanced", "ar": "متقدم" }, "color": "#000000" },
       { "name": "Flutter", "level": { "en": "Advanced", "ar": "متقدم" }, "color": "#02569B" },
       { "name": "Windows Forms", "level": { "en": "Advanced", "ar": "متقدم" }, "color": "#512BD4" },
-      { "name": "Entity Framework", "level": { "en": "Advanced", "ar": "متقدم" }, "color": "#512BD4" }
+      { "name": "Entity Framework", "level": { "en": "Advanced", "ar": "متقدم" }, "color": "#512BD4" },
+      { "name": "Tailwind CSS", "level": { "en": "Intermediate", "ar": "متوسط" }, "color": "#06B6D4" }
     ]
   },
   "experience": [
