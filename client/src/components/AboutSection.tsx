@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { GraduationCap, Languages, Award, User, Calendar, MapPin } from "lucide-react";
+import { GraduationCap, Languages, Award, User, Calendar } from "lucide-react";
 
 interface MultiLangString {
   en: string;
@@ -65,28 +65,28 @@ export default function AboutSection() {
           <div className="space-y-8">
             {/* Introduction */}
             <div className="glass-effect p-8 rounded-3xl border border-primary/10 hover:border-primary/50 transition-all duration-500 hover:shadow-2xl hover:shadow-primary/20 hover:-translate-y-3 animate-card-slide-left hover-lift-card card-tilt group relative overflow-hidden" style={{ animationDelay: '0ms' }}>
-              <div className="absolute inset-0 shimmer-effect opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
+              <div className="absolute inset-0 shimmer-effect opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none"></div>
               <div className={`flex items-center gap-3 mb-6 relative z-10 ${isRtl ? 'flex-row-reverse' : ''}`}>
                 <div className="p-3 rounded-xl bg-primary/10 text-primary group-hover:bg-primary group-hover:text-white transition-all duration-500 transform group-hover:scale-110 group-hover:rotate-12 shadow-lg shadow-primary/5">
                   <User className="w-6 h-6" />
                 </div>
                 <h3 className="text-2xl font-bold group-hover:text-primary transition-colors">{t('about.intro')}</h3>
               </div>
-              <p className="text-lg text-muted-foreground leading-relaxed">
+              <p className="text-lg text-muted-foreground leading-relaxed relative z-10">
                 {data.personal.aboutMe?.[currentLang] || ""}
               </p>
             </div>
 
             {/* Education */}
             <div className="glass-effect p-8 rounded-3xl border border-primary/10 hover:border-primary/50 transition-all duration-500 hover:shadow-2xl hover:shadow-primary/20 hover:-translate-y-3 animate-card-slide-right hover-lift-card card-tilt group relative overflow-hidden" style={{ animationDelay: '100ms' }}>
-              <div className="absolute inset-0 shimmer-effect opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
+              <div className="absolute inset-0 shimmer-effect opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none"></div>
               <div className={`flex items-center gap-3 mb-6 relative z-10 ${isRtl ? 'flex-row-reverse' : ''}`}>
                 <div className="p-3 rounded-xl bg-primary/10 text-primary group-hover:bg-primary group-hover:text-white transition-all duration-500 transform group-hover:scale-110 group-hover:rotate-12 shadow-lg shadow-primary/5">
                   <GraduationCap className="w-6 h-6" />
                 </div>
                 <h3 className="text-2xl font-bold group-hover:text-primary transition-colors">{t('about.education')}</h3>
               </div>
-              <div className="space-y-6">
+              <div className="space-y-6 relative z-10">
                 {data.education.map((edu, index) => (
                   <div key={index} className={`border-l-2 border-primary/30 pl-6 relative ${isRtl ? 'border-l-0 border-r-2 pl-0 pr-6' : ''}`}>
                     <div className={`absolute top-0 -left-[9px] w-4 h-4 rounded-full bg-primary ${isRtl ? '-left-auto -right-[9px]' : ''}`}></div>
@@ -107,14 +107,14 @@ export default function AboutSection() {
           <div className="space-y-8">
             {/* Languages */}
             <div className="glass-effect p-8 rounded-3xl border border-primary/10 hover:border-primary/50 transition-all duration-500 hover:shadow-2xl hover:shadow-primary/20 hover:-translate-y-3 animate-card-slide-left hover-lift-card card-tilt group relative overflow-hidden" style={{ animationDelay: '200ms' }}>
-              <div className="absolute inset-0 shimmer-effect opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
+              <div className="absolute inset-0 shimmer-effect opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none"></div>
               <div className={`flex items-center gap-3 mb-6 relative z-10 ${isRtl ? 'flex-row-reverse' : ''}`}>
                 <div className="p-3 rounded-xl bg-primary/10 text-primary group-hover:bg-primary group-hover:text-white transition-all duration-500 transform group-hover:scale-110 group-hover:rotate-12 shadow-lg shadow-primary/5">
                   <Languages className="w-6 h-6" />
                 </div>
                 <h3 className="text-2xl font-bold group-hover:text-primary transition-colors">{t('about.languages')}</h3>
               </div>
-              <div className="space-y-6">
+              <div className="space-y-6 relative z-10">
                 {data.languages.map((lang, index) => (
                   <div key={index} className="space-y-2">
                     <div className={`flex justify-between text-sm font-medium ${isRtl ? 'flex-row-reverse' : ''}`}>
@@ -134,28 +134,34 @@ export default function AboutSection() {
 
             {/* Certificates - Dynamic Section */}
             <div className="glass-effect p-8 rounded-3xl border border-primary/10 hover:border-primary/50 transition-all duration-500 hover:shadow-2xl hover:shadow-primary/20 hover:-translate-y-3 animate-card-slide-right hover-lift-card card-tilt group relative overflow-hidden" style={{ animationDelay: '300ms' }}>
-              <div className="absolute inset-0 shimmer-effect opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
+              {/* Added pointer-events-none to shimmer to prevent blocking clicks */}
+              <div className="absolute inset-0 shimmer-effect opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none"></div>
+              
               <div className={`flex items-center gap-3 mb-6 relative z-10 ${isRtl ? 'flex-row-reverse' : ''}`}>
                 <div className="p-3 rounded-xl bg-primary/10 text-primary group-hover:bg-primary group-hover:text-white transition-all duration-500 transform group-hover:scale-110 group-hover:rotate-12 shadow-lg shadow-primary/5">
                   <Award className="w-6 h-6" />
                 </div>
                 <h3 className="text-2xl font-bold group-hover:text-primary transition-colors">{t('about.certificates')}</h3>
               </div>
-              <div className="grid grid-cols-1 gap-4">
+              
+              <div className="grid grid-cols-1 gap-4 relative z-20">
                 {data.certificates.map((cert, index) => (
                   <a 
                     key={index} 
                     href={cert.link} 
                     target="_blank" 
                     rel="noopener noreferrer"
-                    className="group p-4 rounded-2xl bg-card border border-border hover:border-primary/50 transition-all duration-300 flex items-center justify-between"
+                    className="group/item p-4 rounded-2xl bg-card border border-border hover:border-primary/50 transition-all duration-300 flex items-center justify-between relative z-30 pointer-events-auto"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                    }}
                   >
                     <div className={`flex items-center gap-4 ${isRtl ? 'flex-row-reverse' : ''}`}>
-                      <div className="w-10 h-10 rounded-lg bg-primary/5 flex items-center justify-center group-hover:bg-primary/10 transition-colors">
+                      <div className="w-10 h-10 rounded-lg bg-primary/5 flex items-center justify-center group-hover/item:bg-primary/10 transition-colors">
                         <Award className="w-5 h-5 text-primary" />
                       </div>
                       <div className={isRtl ? 'text-right' : 'text-left'}>
-                        <h4 className="font-bold text-foreground group-hover:text-primary transition-colors">{cert.title?.[currentLang] || ""}</h4>
+                        <h4 className="font-bold text-foreground group-hover/item:text-primary transition-colors">{cert.title?.[currentLang] || ""}</h4>
                         <p className="text-xs text-muted-foreground">{cert.issuer} • {cert.date}</p>
                       </div>
                     </div>
