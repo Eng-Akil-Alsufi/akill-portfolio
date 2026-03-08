@@ -4,6 +4,7 @@ import path from "path";
 import { defineConfig } from "vite";
 
 export default defineConfig({
+  // تأكد من أن المسار يطابق اسم المستودع الخاص بك على GitHub
   base: "/akill-portfolio/",
   plugins: [react(), tailwindcss()],
   resolve: {
@@ -21,7 +22,6 @@ export default defineConfig({
     port: 3000,
     strictPort: false,
     host: true,
-    allowedHosts: 'all',
     fs: {
       strict: true,
       deny: ["**/.*"],
