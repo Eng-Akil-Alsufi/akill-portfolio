@@ -1,5 +1,5 @@
 import { useState, useEffect, useMemo } from "react";
-import { Github, ExternalLink, Code2, Star, GitFork, Search } from "lucide-react";
+import { Github, ExternalLink, Code2, Star, GitFork, Search, Globe } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useTranslation } from "react-i18next";
 
@@ -246,22 +246,27 @@ export default function ProjectsSection() {
                       <ExternalLink className="w-4 h-4 opacity-0 group-hover/btn:opacity-100 group-hover/btn:translate-x-1 transition-all" />
                     </Button>
                   </a>
-                  {project.homepage && (
-                    <a
-                      href={project.homepage}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex-1"
+                  <a
+                    href={project.homepage || '#'}
+                    target={project.homepage ? "_blank" : undefined}
+                    rel={project.homepage ? "noopener noreferrer" : undefined}
+                    className="flex-1"
+                    onClick={(e) => !project.homepage && e.preventDefault()}
+                  >
+                    <Button
+                      size="sm"
+                      disabled={!project.homepage}
+                      className={`w-full gap-2 group/btn rounded-xl ripple-effect transition-all duration-300 ${
+                        project.homepage
+                          ? 'bg-primary hover:bg-primary/90 shadow-lg shadow-primary/20'
+                          : 'bg-muted text-muted-foreground border-dashed border-border opacity-50 cursor-not-allowed'
+                      }`}
                     >
-                      <Button
-                        size="sm"
-                        className="w-full gap-2 group/btn bg-primary hover:bg-primary/90 transition-all duration-300 rounded-xl shadow-lg shadow-primary/20 ripple-effect"
-                      >
-                        {isRtl ? 'مباشر' : 'Live'}
-                        <ExternalLink className="w-4 h-4 opacity-0 group-hover/btn:opacity-100 group-hover/btn:translate-x-1 transition-all" />
-                      </Button>
-                    </a>
-                  )}
+                      <Globe className="w-4 h-4" />
+                      {isRtl ? 'معاينة حية' : 'Live Preview'}
+                      <ExternalLink className="w-4 h-4 opacity-0 group-hover/btn:opacity-100 group-hover/btn:translate-x-1 transition-all" />
+                    </Button>
+                  </a>
                 </div>
               </div>
             </div>

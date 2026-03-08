@@ -595,4 +595,183 @@
     bottom: 2rem !important;
     z-index: 100 !important;
   }
+
+  /* Separate hover and scroll focus states */
+  .scroll-reveal,
+  .focus-section {
+    transition: all 0.3s ease-in-out;
+  }
+
+  /* Active state for scroll focus (without hover) */
+  .focus-section.active:not(:hover) {
+    transform: scale(1.01);
+    box-shadow: 0 0 30px rgba(0, 214, 255, 0.1);
+    border-color: rgba(0, 214, 255, 0.3);
+    z-index: 10;
+  }
+
+  /* Ensure hover state takes precedence over scroll focus */
+  .focus-section:hover {
+    transform: scale(1.02);
+    box-shadow: 0 0 40px rgba(0, 214, 255, 0.2);
+    border-color: rgba(0, 214, 255, 0.5);
+    z-index: 20;
+  }
+
+  /* Mobile optimization for focus-section */
+  @media (max-width: 768px) {
+    .focus-section.active:not(:hover) {
+      transform: scale(1.02);
+      box-shadow: 0 0 25px rgba(0, 214, 255, 0.15);
+      border-color: rgba(0, 214, 255, 0.4);
+    }
+  }
+}
+
+  /* Mobile Scroll Focus Effects - Only on mobile devices */
+  @media (max-width: 768px) {
+    .mobile-scroll-focus {
+      animation: mobileScrollFocus 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+    }
+
+    @keyframes mobileScrollFocus {
+      0% {
+        opacity: 0.8;
+        transform: scale(0.98);
+      }
+      50% {
+        opacity: 1;
+        transform: scale(1.01);
+      }
+      100% {
+        opacity: 1;
+        transform: scale(1.02);
+      }
+    }
+  }
+
+  /* Smooth Scroll Behavior */
+  html {
+    scroll-behavior: smooth;
+  }
+
+  /* Menu Animation - Smooth transitions */
+  @keyframes slideInFromRight {
+    from {
+      opacity: 0;
+      transform: translateX(100%);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  @keyframes slideOutToRight {
+    from {
+      opacity: 1;
+      transform: translateX(0);
+    }
+    to {
+      opacity: 0;
+      transform: translateX(100%);
+    }
+  }
+
+  @keyframes slideInFromLeft {
+    from {
+      opacity: 0;
+      transform: translateX(-100%);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  @keyframes slideOutToLeft {
+    from {
+      opacity: 1;
+      transform: translateX(0);
+    }
+    to {
+      opacity: 0;
+      transform: translateX(-100%);
+    }
+  }
+
+  /* Menu button icon rotation animation */
+  .menu-icon-rotate {
+    transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.5s ease;
+  }
+
+  /* Smooth scroll on anchor links */
+  a[href^="#"] {
+    scroll-behavior: smooth;
+  }
+
+  /* Prevent layout shift during scroll */
+  body {
+    overflow-y: scroll;
+  }
+
+  /* Safe scroll transitions */
+  .safe-scroll {
+    will-change: auto;
+    backface-visibility: hidden;
+    perspective: 1000px;
+  }
+
+  @keyframes smoothFadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .animate-smooth-fade-in {
+    animation: smoothFadeIn 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+  }
+
+  @keyframes menuButtonRotate {
+    from {
+      transform: rotate(0deg) scale(1);
+      opacity: 1;
+    }
+    to {
+      transform: rotate(90deg) scale(0.8);
+      opacity: 0;
+    }
+  }
+
+  @keyframes menuButtonRotateReverse {
+    from {
+      transform: rotate(-90deg) scale(0.8);
+      opacity: 0;
+    }
+    to {
+      transform: rotate(0deg) scale(1);
+      opacity: 1;
+    }
+  }
+
+  /* Enhanced focus reveal animation */
+  @keyframes focusReveal {
+    0% {
+      opacity: 0.8;
+      transform: scale(0.99);
+    }
+    100% {
+      opacity: 1;
+      transform: scale(1.01);
+    }
+  }
+
+  .focus-section.active:not(:hover) {
+    animation: focusReveal 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+  }
 }

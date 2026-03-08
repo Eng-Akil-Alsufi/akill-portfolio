@@ -26,6 +26,7 @@ interface PersonalData {
 
 export default function ContactSection() {
   const [formData, setFormData] = useState({ name: '', email: '', subject: '', message: '' });
+  const [focusedField, setFocusedField] = useState<string | null>(null);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
@@ -204,62 +205,69 @@ export default function ContactSection() {
             <div className="relative z-10">
             <form className="space-y-6" onSubmit={handleSendMessage}>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                <div className="space-y-2 group">
-                  <label className={`text-sm font-medium text-muted-foreground group-focus-within:text-primary transition-colors ${isRtl ? 'block text-right' : ''}`}>
+                <div className="space-y-2">
+                  <label className={`text-sm font-medium transition-colors ${isRtl ? 'block text-right' : ''} ${focusedField === 'name' ? 'text-primary' : 'text-muted-foreground'}`}>
                     {t('contact.form.name')}
                   </label>
                   <input
                     type="text"
-                    className={`w-full bg-background border border-border rounded-xl px-4 py-3 focus:outline-none focus:border-primary/50 focus:ring-2 focus:ring-primary/10 transition-all duration-300 ${isRtl ? 'text-right' : ''}`}
+                    className={`w-full bg-background border rounded-xl px-4 py-3 focus:outline-none transition-all duration-300 ${isRtl ? 'text-right' : ''} ${focusedField === 'name' ? 'border-primary/50 ring-2 ring-primary/10' : 'border-border'}`}
                     placeholder={t('contact.form.name_placeholder')}
                     name="name"
                     value={formData.name}
                     onChange={handleInputChange}
+                    onFocus={() => setFocusedField('name')}
+                    onBlur={() => setFocusedField(null)}
                     required
                   />
                 </div>
-                <div className="space-y-2 group">
-                  <label className={`text-sm font-medium text-muted-foreground group-focus-within:text-primary transition-colors ${isRtl ? 'block text-right' : ''}`}>
+                <div className="space-y-2">
+                  <label className={`text-sm font-medium transition-colors ${isRtl ? 'block text-right' : ''} ${focusedField === 'email' ? 'text-primary' : 'text-muted-foreground'}`}>
                     {t('contact.form.email')}
                   </label>
                   <input
                     type="email"
-                    className={`w-full bg-background border border-border rounded-xl px-4 py-3 focus:outline-none focus:border-primary/50 focus:ring-2 focus:ring-primary/10 transition-all duration-300 ${isRtl ? 'text-right' : ''}`}
+                    className={`w-full bg-background border rounded-xl px-4 py-3 focus:outline-none transition-all duration-300 ${isRtl ? 'text-right' : ''} ${focusedField === 'email' ? 'border-primary/50 ring-2 ring-primary/10' : 'border-border'}`}
                     placeholder={t('contact.form.email_placeholder')}
                     name="email"
                     value={formData.email}
                     onChange={handleInputChange}
+                    onFocus={() => setFocusedField('email')}
+                    onBlur={() => setFocusedField(null)}
                     required
                   />
                 </div>
               </div>
-              <div className="space-y-2 group">
-                <label className={`text-sm font-medium text-muted-foreground group-focus-within:text-primary transition-colors ${isRtl ? 'block text-right' : ''}`}>
+              <div className="space-y-2">
+                <label className={`text-sm font-medium transition-colors ${isRtl ? 'block text-right' : ''} ${focusedField === 'subject' ? 'text-primary' : 'text-muted-foreground'}`}>
                   {t('contact.form.subject')}
                 </label>
                 <input
                   type="text"
-                  className={`w-full bg-background border border-border rounded-xl px-4 py-3 focus:outline-none focus:border-primary/50 focus:ring-2 focus:ring-primary/10 transition-all duration-300 ${isRtl ? 'text-right' : ''}`}
+                  className={`w-full bg-background border rounded-xl px-4 py-3 focus:outline-none transition-all duration-300 ${isRtl ? 'text-right' : ''} ${focusedField === 'subject' ? 'border-primary/50 ring-2 ring-primary/10' : 'border-border'}`}
                   placeholder={t('contact.form.subject_placeholder')}
                   name="subject"
                   value={formData.subject}
                   onChange={handleInputChange}
+                  onFocus={() => setFocusedField('subject')}
+                  onBlur={() => setFocusedField(null)}
                 />
               </div>
-              <div className="space-y-2 group">
-                <label className={`text-sm font-medium text-muted-foreground group-focus-within:text-primary transition-colors ${isRtl ? 'block text-right' : ''}`}>
+                <div className="space-y-2">
+                <label className={`text-sm font-medium transition-colors ${isRtl ? 'block text-right' : ''} ${focusedField === 'message' ? 'text-primary' : 'text-muted-foreground'}`}>
                   {t('contact.form.message')}
                 </label>
                 <textarea
-                  rows={5}
-                  className={`w-full bg-background border border-border rounded-xl px-4 py-3 focus:outline-none focus:border-primary/50 focus:ring-2 focus:ring-primary/10 transition-all duration-300 resize-none ${isRtl ? 'text-right' : ''}`}
+                  className={`w-full bg-background border rounded-xl px-4 py-3 focus:outline-none transition-all duration-300 min-h-[150px] resize-none ${isRtl ? 'text-right' : ''} ${focusedField === 'message' ? 'border-primary/50 ring-2 ring-primary/10' : 'border-border'}`}
                   placeholder={t('contact.form.message_placeholder')}
                   name="message"
                   value={formData.message}
                   onChange={handleInputChange}
+                  onFocus={() => setFocusedField('message')}
+                  onBlur={() => setFocusedField(null)}
                   required
                 />
-              </div>
+              </div>     </div>
               <Button 
                 type="submit"
                 className="w-full py-6 rounded-xl bg-primary hover:bg-primary/90 text-white font-bold text-lg shadow-lg shadow-primary/20 transition-all duration-300 hover:scale-[1.02] active:scale-[0.98] flex items-center justify-center gap-2"

@@ -10,6 +10,12 @@ import { Sheet, SheetContent, SheetTrigger, SheetTitle } from "@/components/ui/s
 import { Button } from "@/components/ui/button";
 import { useEffect, useState, useRef } from "react";
 
+// Detect if device is mobile
+const isMobileDevice = () => {
+  if (typeof window === 'undefined') return false;
+  return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || window.innerWidth < 768;
+};
+
 export default function Home() {
   const { t, i18n } = useTranslation();
   const isRtl = i18n.language.startsWith('ar');
@@ -23,9 +29,33 @@ export default function Home() {
   };
   const [activeSection, setActiveSection] = useState("");
   const [isLangExpanded, setIsLangExpanded] = useState(false);
+  const [hoveredElement, setHoveredElement] = useState<string | null>(null);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
   const sectionRefs = useRef<Record<string, HTMLElement | null>>({});
+  const hoverTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const elementListenersRef = useRef<Map<Element, { enter: () => void; leave: () => void }>>(new Map());
+
+  // Smooth scroll with performance optimization
+  useEffect(() => {
+    let scrollTimeout: NodeJS.Timeout;
+    let isScrolling = false;
+
+    const handleScroll = () => {
+      if (!isScrolling) {
+        isScrolling = true;
+        clearTimeout(scrollTimeout);
+        scrollTimeout = setTimeout(() => {
+          isScrolling = false;
+        }, 100);
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll, true as any);
+  }, []);
 
   useEffect(() => {
+    const isMobile = isMobileDevice();
     const observerOptions = {
       root: null,
       rootMargin: "-10% 0px -10% 0px",
@@ -34,14 +64,22 @@ export default function Home() {
 
     const handleIntersect = (entries: IntersectionObserverEntry[]) => {
       entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add("active");
-          if (entry.target.classList.contains("focus-section") && entry.intersectionRatio > 0.4) {
+        if (entry.isIntersecting && entry.intersectionRatio > 0.5) {
+          // Only add active class if not currently hovered
+          if (!hoveredElement) {
+            // Remove active from others first to ensure only one is focused
+            document.querySelectorAll(".focus-section.active").forEach(el => el.classList.remove("active"));
+            entry.target.classList.add("active");
+            // Add mobile-specific class for scroll focus effects
+            if (isMobile) {
+              entry.target.classList.add("mobile-scroll-focus");
+            }
             setActiveSection(entry.target.id);
           }
-        } else {
-          if (entry.target.classList.contains("focus-section")) {
-            entry.target.classList.remove("active");
+        } else if (!entry.isIntersecting || entry.intersectionRatio < 0.2) {
+          entry.target.classList.remove("active");
+          if (isMobile) {
+            entry.target.classList.remove("mobile-scroll-focus");
           }
         }
       });
@@ -51,7 +89,63 @@ export default function Home() {
     
     const observeElements = () => {
       const elements = document.querySelectorAll(".scroll-reveal, .focus-section");
-      elements.forEach((el) => observer.observe(el));
+      elements.forEach((el) => {
+        // Skip if already observed
+        if (elementListenersRef.current.has(el)) {
+          return;
+        }
+
+        observer.observe(el);
+        
+        // Create event handlers for this element
+        const handleMouseEnter = () => {
+          setHoveredElement(el.id);
+          // Remove active from all focus-sections when hovering
+          document.querySelectorAll(".focus-section.active").forEach((e) => {
+            e.classList.remove("active");
+          });
+        };
+        
+        const handleMouseLeave = () => {
+          setHoveredElement(null);
+          // Restore active to the currently visible section based on scroll position
+          if (hoverTimeoutRef.current) {
+            clearTimeout(hoverTimeoutRef.current);
+          }
+          hoverTimeoutRef.current = setTimeout(() => {
+            const visibleSections = document.querySelectorAll(".focus-section");
+            visibleSections.forEach((section) => {
+              const rect = (section as HTMLElement).getBoundingClientRect();
+              if (rect.top < window.innerHeight * 0.9 && rect.bottom > window.innerHeight * 0.1) {
+                section.classList.add("active");
+              }
+            });
+          }, 100);
+        };
+
+        // Store listeners for cleanup
+        elementListenersRef.current.set(el, { enter: handleMouseEnter, leave: handleMouseLeave });
+        
+        // Only add hover listeners on desktop
+        if (!isMobile) {
+          el.addEventListener("mouseenter", handleMouseEnter);
+          el.addEventListener("mouseleave", handleMouseLeave);
+        }
+        
+        // Mobile touch handling to prevent sticky hover
+        const handleTouchStart = () => {
+          if (isMobile) handleMouseEnter();
+        };
+        const handleTouchEnd = () => {
+          // Small delay to allow click events but clear hover state
+          if (isMobile) {
+            setTimeout(handleMouseLeave, 150);
+          }
+        };
+        
+        el.addEventListener("touchstart", handleTouchStart, { passive: true });
+        el.addEventListener("touchend", handleTouchEnd, { passive: true });
+      });
     };
 
     observeElements();
@@ -65,8 +159,17 @@ export default function Home() {
     return () => {
       observer.disconnect();
       mutationObserver.disconnect();
+      if (hoverTimeoutRef.current) {
+        clearTimeout(hoverTimeoutRef.current);
+      }
+      // Clean up event listeners
+      elementListenersRef.current.forEach((listeners, el) => {
+        el.removeEventListener("mouseenter", listeners.enter);
+        el.removeEventListener("mouseleave", listeners.leave);
+      });
+      elementListenersRef.current.clear();
     };
-  }, []);
+  }, [hoveredElement]);
 
   const navItems = [
     { href: "#about", label: t('nav.about') },
@@ -79,14 +182,14 @@ export default function Home() {
   return (
     <div className={`min-h-screen bg-background text-foreground ${isRtl ? 'rtl' : 'ltr'}`}>
       {/* Language Switcher Floating Button - Interactive & Professional */}
-      <div className={`fixed bottom-8 ${isRtl ? 'left-8' : 'right-8'} z-[100]`}>
+      <div className={`fixed bottom-8 ${isRtl ? 'left-8' : 'right-8'} z-[100] pointer-events-auto`}>
         <div 
           className={`flex items-center bg-background/90 backdrop-blur-md border border-primary/30 rounded-full shadow-xl lang-switcher-expand overflow-hidden group hover:border-primary hover:shadow-[0_0_20px_rgba(0,214,255,0.4)] ${isLangExpanded ? 'max-w-[220px] px-4' : 'max-w-[60px] px-0'}`}
           style={{ height: '60px' }}
         >
           <button
             onClick={() => setIsLangExpanded(!isLangExpanded)}
-            className="flex items-center justify-center min-w-[60px] h-full transition-transform duration-500 group-hover:scale-110"
+            className="flex items-center justify-center min-w-[60px] h-full transition-transform duration-500 group-hover:scale-110 pointer-events-auto"
             aria-label="Toggle Language Menu"
           >
             <Languages className={`w-6 h-6 text-primary transition-transform duration-500 ${isLangExpanded ? 'rotate-180' : 'rotate-0'}`} />
@@ -99,7 +202,7 @@ export default function Home() {
                 toggleLanguage();
                 setIsLangExpanded(false);
               }}
-              className="whitespace-nowrap font-bold text-base text-foreground hover:text-primary transition-colors py-2"
+              className="whitespace-nowrap font-bold text-base text-foreground hover:text-primary transition-colors py-2 pointer-events-auto"
             >
               {currentLang === 'en' ? 'العربية' : 'English'}
             </button>
@@ -131,13 +234,36 @@ export default function Home() {
           </div>
 
           <div className="md:hidden">
-            <Sheet>
+            <Sheet open={isMenuOpen} onOpenChange={setIsMenuOpen}>
               <SheetTrigger asChild>
-                <Button variant="ghost" size="icon" className="text-foreground hover:bg-primary/10 hover:text-primary transition-all duration-300 hover:scale-110">
-                  <Menu className="w-6 h-6" />
+                <Button 
+                  variant="ghost" 
+                  size="icon" 
+                  className="text-foreground hover:bg-primary/10 hover:text-primary transition-all duration-300 hover:scale-110 relative w-10 h-10 flex items-center justify-center"
+                >
+                  <div className="relative w-6 h-6 flex items-center justify-center">
+                    <Menu 
+                      className={`w-6 h-6 transition-all duration-500 absolute ${
+                        isMenuOpen 
+                          ? 'opacity-0 rotate-90 scale-0' 
+                          : 'opacity-100 rotate-0 scale-100'
+                      }`} 
+                    />
+                    <X 
+                      className={`w-6 h-6 transition-all duration-500 absolute ${
+                        isMenuOpen 
+                          ? 'opacity-100 rotate-0 scale-100' 
+                          : 'opacity-0 -rotate-90 scale-0'
+                      }`} 
+                    />
+                  </div>
                 </Button>
               </SheetTrigger>
-              <SheetContent side={isRtl ? "left" : "right"} className="bg-background/95 backdrop-blur-xl border-primary/10 w-[300px] sm:w-[400px]" showCloseButton={false}>
+              <SheetContent 
+                side={isRtl ? "left" : "right"} 
+                className="bg-background/95 backdrop-blur-xl border-primary/10 w-[300px] sm:w-[400px] transition-all duration-500 ease-out" 
+                showCloseButton={false}
+              >
                 <div className={`flex items-center gap-4 mb-8 ${isRtl ? 'flex-row-reverse' : ''}`}>
                   <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center text-primary">
                     <Menu className="w-6 h-6" />
@@ -151,6 +277,7 @@ export default function Home() {
                     <a 
                       key={item.href}
                       href={item.href} 
+                      onClick={() => setIsMenuOpen(false)}
                       className={`group flex items-center justify-between p-4 rounded-2xl hover:bg-primary/10 transition-all duration-500 animate-fade-in-up ${
                         activeSection === item.href.substring(1) ? 'bg-primary/5 text-primary' : ''
                       }`}
