@@ -626,7 +626,6 @@
       border-color: rgba(0, 214, 255, 0.4);
     }
   }
-}
 
   /* Mobile Scroll Focus Effects - Only on mobile devices */
   @media (max-width: 768px) {
