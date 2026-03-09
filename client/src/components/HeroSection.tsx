@@ -83,7 +83,7 @@ export default function HeroSection() {
   ];
 
   return (
-    <section id="hero" className="relative min-h-[calc(100vh-64px)] flex items-center pt-8 md:pt-20 overflow-hidden bg-background scroll-reveal active">
+    <section id="hero" className="relative min-h-[calc(100vh-64px)] flex items-center pt-8 md:pt-20 overflow-hidden bg-background scroll-reveal focus-section">
 
 
       {/* Background decorative elements */}
