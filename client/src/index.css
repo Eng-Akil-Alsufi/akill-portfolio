@@ -602,28 +602,75 @@
     transition: all 0.3s ease-in-out;
   }
 
-  /* Active state for scroll focus (without hover) */
-  .focus-section.active:not(:hover) {
-    transform: scale(1.01);
-    box-shadow: 0 0 30px rgba(0, 214, 255, 0.1);
-    border-color: rgba(0, 214, 255, 0.3);
-    z-index: 10;
+  /* Active state for scroll focus (without hover) - DISABLED ON DESKTOP */
+  @media (min-width: 769px) {
+    .focus-section.active:not(:hover) {
+      transform: none;
+      box-shadow: none;
+      border-color: inherit;
+    }
   }
 
-  /* Ensure hover state takes precedence over scroll focus */
+  /* Enhanced Hover effects - Professional & Interactive */
+  .focus-section {
+    transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+    position: relative;
+    overflow: hidden;
+  }
+
   .focus-section:hover {
-    transform: scale(1.02);
-    box-shadow: 0 0 40px rgba(0, 214, 255, 0.2);
-    border-color: rgba(0, 214, 255, 0.5);
+    transform: translateY(-5px) scale(1.01);
+    box-shadow: 
+      0 20px 40px rgba(0, 0, 0, 0.4),
+      0 0 20px rgba(0, 214, 255, 0.1);
+    border-color: var(--primary);
     z-index: 20;
   }
 
-  /* Mobile optimization for focus-section */
+  .focus-section:hover::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+      120deg,
+      transparent,
+      rgba(255, 255, 255, 0.05),
+      transparent
+    );
+    transition: 0.6s;
+  }
+
+  .focus-section:hover::before {
+    left: 100%;
+  }
+
+  /* Mobile Scroll Focus Effects - Only on mobile devices */
   @media (max-width: 768px) {
-    .focus-section.active:not(:hover) {
+    .focus-section.active {
       transform: scale(1.02);
-      box-shadow: 0 0 25px rgba(0, 214, 255, 0.15);
-      border-color: rgba(0, 214, 255, 0.4);
+      box-shadow: 
+        0 15px 30px rgba(0, 0, 0, 0.3),
+        0 0 20px rgba(0, 214, 255, 0.2);
+      border-color: var(--primary);
+      z-index: 10;
+    }
+    
+    .mobile-scroll-focus {
+      animation: mobileScrollFocus 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+    }
+
+    @keyframes mobileScrollFocus {
+      0% {
+        transform: scale(0.98);
+        filter: brightness(0.8);
+      }
+      100% {
+        transform: scale(1.02);
+        filter: brightness(1.1);
+      }
     }
   }
 
@@ -719,6 +766,220 @@
     will-change: auto;
     backface-visibility: hidden;
     perspective: 1000px;
+  }
+
+  /* --- Magic Navigation Menu (Desktop) --- */
+  .magic-nav {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: var(--background);
+    padding: 0 20px;
+    border-radius: 0 0 20px 20px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+    border: 1px solid var(--border);
+    border-top: none;
+  }
+
+  .magic-nav ul {
+    display: flex;
+    width: auto;
+    padding: 0;
+    margin: 0;
+    position: relative;
+  }
+
+  .magic-nav ul li {
+    position: relative;
+    list-style: none;
+    width: 100px; /* Increased for better spacing */
+    height: 70px;
+    z-index: 1;
+  }
+
+  .magic-nav ul li a {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 100%;
+    text-align: center;
+    font-weight: 500;
+    text-decoration: none;
+  }
+
+  /* Reversed: Icon at bottom, Text at top */
+  .magic-nav ul li a .text {
+    position: absolute;
+    color: var(--foreground);
+    font-weight: 600;
+    font-size: 0.75em;
+    letter-spacing: 0.05em;
+    transition: 0.5s;
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+
+  .magic-nav ul li.active a .text {
+    opacity: 1;
+    transform: translateY(-20px);
+    color: var(--primary);
+  }
+
+  .magic-nav ul li a .icon {
+    position: relative;
+    display: block;
+    line-height: 75px;
+    font-size: 1.5em;
+    color: var(--muted-foreground);
+    transition: 0.5s;
+  }
+
+  .magic-nav ul li.active a .icon {
+    transform: translateY(25px);
+    color: var(--background);
+  }
+
+  .magic-nav .indicator {
+    position: absolute;
+    top: -50%; /* Adjusted to match curve style */
+    width: 100px;
+    height: 100px;
+    background: var(--primary);
+    border-radius: 50%;
+    border: 6px solid var(--background);
+    transition: 0.5s;
+    z-index: 0;
+  }
+
+  .magic-nav .indicator::before {
+    content: '';
+    position: absolute;
+    top: 5px;
+    left: -22px;
+    width: 20px;
+    height: 20px;
+    background: transparent;
+    border-top-right-radius: 20px;
+    box-shadow: 1px -10px 0 0 var(--background);
+  }
+
+  .magic-nav .indicator::after {
+    content: '';
+    position: absolute;
+    top: 5px;
+    right: -22px;
+    width: 20px;
+    height: 20px;
+    background: transparent;
+    border-top-left-radius: 20px;
+    box-shadow: -1px -10px 0 0 var(--background);
+  }
+
+  /* --- Curve Tab Menu (Mobile) --- */
+  .mobile-curve-nav {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 70px;
+    background: var(--card);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    border-top: 1px solid var(--border);
+    padding: 0 10px;
+  }
+
+  .mobile-curve-nav ul {
+    display: flex;
+    width: 100%;
+    justify-content: space-around;
+  }
+
+  .mobile-curve-nav ul li {
+    position: relative;
+    list-style: none;
+    flex: 1; /* Better distribution */
+    height: 70px;
+    z-index: 1;
+  }
+
+  .mobile-curve-nav ul li a {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 100%;
+    text-align: center;
+  }
+
+  .mobile-curve-nav ul li a .icon {
+    position: relative;
+    display: block;
+    line-height: 75px;
+    font-size: 1.5em;
+    color: var(--muted-foreground);
+    transition: 0.5s;
+  }
+
+  .mobile-curve-nav ul li.active a .icon {
+    transform: translateY(-35px);
+    color: var(--primary);
+  }
+
+  .mobile-curve-nav ul li a .text {
+    position: absolute;
+    color: var(--foreground);
+    font-weight: 400;
+    font-size: 0.75em;
+    letter-spacing: 0.05em;
+    transition: 0.5s;
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  .mobile-curve-nav ul li.active a .text {
+    opacity: 1;
+    transform: translateY(10px);
+  }
+
+  .mobile-curve-nav .indicator {
+    position: absolute;
+    top: -50%;
+    width: 70px;
+    height: 70px;
+    background: var(--primary);
+    border-radius: 50%;
+    border: 6px solid var(--background);
+    transition: 0.5s;
+  }
+
+  .mobile-curve-nav .indicator::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: -22px;
+    width: 20px;
+    height: 20px;
+    background: transparent;
+    border-top-right-radius: 20px;
+    box-shadow: 1px -10px 0 0 var(--background);
+  }
+
+  .mobile-curve-nav .indicator::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    right: -22px;
+    width: 20px;
+    height: 20px;
+    background: transparent;
+    border-top-left-radius: 20px;
+    box-shadow: -1px -10px 0 0 var(--background);
   }
 
   @keyframes smoothFadeIn {

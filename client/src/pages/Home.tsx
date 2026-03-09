@@ -5,9 +5,7 @@ import SkillsSection from "@/components/SkillsSection";
 import ExperienceSection from "@/components/ExperienceSection";
 import ContactSection from "@/components/ContactSection";
 import { useTranslation } from "react-i18next";
-import { Menu, X, Languages } from "lucide-react";
-import { Sheet, SheetContent, SheetTrigger, SheetTitle } from "@/components/ui/sheet";
-import { Button } from "@/components/ui/button";
+import { Languages, User, Briefcase, Code, GraduationCap, Mail, Home as HomeIcon } from "lucide-react";
 import { useEffect, useState, useRef } from "react";
 
 // Detect if device is mobile
@@ -27,11 +25,9 @@ export default function Home() {
     document.documentElement.dir = newLang === 'ar' ? 'rtl' : 'ltr';
     document.documentElement.lang = newLang;
   };
-  const [activeSection, setActiveSection] = useState("");
+  const [activeSection, setActiveSection] = useState("hero");
   const [isLangExpanded, setIsLangExpanded] = useState(false);
   const [hoveredElement, setHoveredElement] = useState<string | null>(null);
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const sectionRefs = useRef<Record<string, HTMLElement | null>>({});
   const hoverTimeoutRef = useRef<NodeJS.Timeout | null>(null);
   const elementListenersRef = useRef<Map<Element, { enter: () => void; leave: () => void }>>(new Map());
 
@@ -58,19 +54,16 @@ export default function Home() {
     const isMobile = isMobileDevice();
     const observerOptions = {
       root: null,
-      rootMargin: "-10% 0px -10% 0px",
+      rootMargin: "-20% 0px -20% 0px",
       threshold: [0, 0.1, 0.5],
     };
 
     const handleIntersect = (entries: IntersectionObserverEntry[]) => {
       entries.forEach((entry) => {
-        if (entry.isIntersecting && entry.intersectionRatio > 0.5) {
-          // Only add active class if not currently hovered
+        if (entry.isIntersecting && entry.intersectionRatio > 0.4) {
           if (!hoveredElement) {
-            // Remove active from others first to ensure only one is focused
             document.querySelectorAll(".focus-section.active").forEach(el => el.classList.remove("active"));
             entry.target.classList.add("active");
-            // Add mobile-specific class for scroll focus effects
             if (isMobile) {
               entry.target.classList.add("mobile-scroll-focus");
             }
@@ -90,17 +83,12 @@ export default function Home() {
     const observeElements = () => {
       const elements = document.querySelectorAll(".scroll-reveal, .focus-section");
       elements.forEach((el) => {
-        // Skip if already observed
-        if (elementListenersRef.current.has(el)) {
-          return;
-        }
+        if (elementListenersRef.current.has(el)) return;
 
         observer.observe(el);
         
-        // Create event handlers for this element
         const handleMouseEnter = () => {
           setHoveredElement(el.id);
-          // Remove active from all focus-sections when hovering
           document.querySelectorAll(".focus-section.active").forEach((e) => {
             e.classList.remove("active");
           });
@@ -108,61 +96,36 @@ export default function Home() {
         
         const handleMouseLeave = () => {
           setHoveredElement(null);
-          // Restore active to the currently visible section based on scroll position
-          if (hoverTimeoutRef.current) {
-            clearTimeout(hoverTimeoutRef.current);
-          }
+          if (hoverTimeoutRef.current) clearTimeout(hoverTimeoutRef.current);
           hoverTimeoutRef.current = setTimeout(() => {
             const visibleSections = document.querySelectorAll(".focus-section");
             visibleSections.forEach((section) => {
               const rect = (section as HTMLElement).getBoundingClientRect();
-              if (rect.top < window.innerHeight * 0.9 && rect.bottom > window.innerHeight * 0.1) {
+              if (rect.top < window.innerHeight * 0.8 && rect.bottom > window.innerHeight * 0.2) {
                 section.classList.add("active");
+                setActiveSection(section.id);
               }
             });
           }, 100);
         };
 
-        // Store listeners for cleanup
         elementListenersRef.current.set(el, { enter: handleMouseEnter, leave: handleMouseLeave });
         
-        // Only add hover listeners on desktop
         if (!isMobile) {
           el.addEventListener("mouseenter", handleMouseEnter);
           el.addEventListener("mouseleave", handleMouseLeave);
         }
-        
-        // Mobile touch handling to prevent sticky hover
-        const handleTouchStart = () => {
-          if (isMobile) handleMouseEnter();
-        };
-        const handleTouchEnd = () => {
-          // Small delay to allow click events but clear hover state
-          if (isMobile) {
-            setTimeout(handleMouseLeave, 150);
-          }
-        };
-        
-        el.addEventListener("touchstart", handleTouchStart, { passive: true });
-        el.addEventListener("touchend", handleTouchEnd, { passive: true });
       });
     };
 
     observeElements();
-
-    const mutationObserver = new MutationObserver(() => {
-      observeElements();
-    });
-
+    const mutationObserver = new MutationObserver(() => observeElements());
     mutationObserver.observe(document.body, { childList: true, subtree: true });
 
     return () => {
       observer.disconnect();
       mutationObserver.disconnect();
-      if (hoverTimeoutRef.current) {
-        clearTimeout(hoverTimeoutRef.current);
-      }
-      // Clean up event listeners
+      if (hoverTimeoutRef.current) clearTimeout(hoverTimeoutRef.current);
       elementListenersRef.current.forEach((listeners, el) => {
         el.removeEventListener("mouseenter", listeners.enter);
         el.removeEventListener("mouseleave", listeners.leave);
@@ -172,37 +135,40 @@ export default function Home() {
   }, [hoveredElement]);
 
   const navItems = [
-    { href: "#about", label: t('nav.about') },
-    { href: "#projects", label: t('nav.projects') },
-    { href: "#skills", label: t('nav.skills') },
-    { href: "#experience", label: t('nav.experience') },
-    { href: "#contact", label: t('nav.contact') },
+    { id: "hero", href: "#hero", label: isRtl ? "الرئيسية" : "Home", icon: HomeIcon },
+    { id: "about", href: "#about", label: t('nav.about'), icon: User },
+    { id: "projects", href: "#projects", label: t('nav.projects'), icon: Code },
+    { id: "skills", href: "#skills", label: t('nav.skills'), icon: GraduationCap },
+    { id: "experience", href: "#experience", label: t('nav.experience'), icon: Briefcase },
+    { id: "contact", href: "#contact", label: t('nav.contact'), icon: Mail },
   ];
+
+  const activeIndex = navItems.findIndex(item => item.id === activeSection);
 
   return (
     <div className={`min-h-screen bg-background text-foreground ${isRtl ? 'rtl' : 'ltr'}`}>
-      {/* Language Switcher Floating Button - Interactive & Professional */}
-      <div className={`fixed bottom-8 ${isRtl ? 'left-8' : 'right-8'} z-[100] pointer-events-auto`}>
+      {/* Language Switcher Floating Button */}
+      <div className={`fixed bottom-24 md:bottom-8 ${isRtl ? 'left-8' : 'right-8'} z-[100] pointer-events-auto`}>
         <div 
-          className={`flex items-center bg-background/90 backdrop-blur-md border border-primary/30 rounded-full shadow-xl lang-switcher-expand overflow-hidden group hover:border-primary hover:shadow-[0_0_20px_rgba(0,214,255,0.4)] ${isLangExpanded ? 'max-w-[220px] px-4' : 'max-w-[60px] px-0'}`}
-          style={{ height: '60px' }}
+          className={`flex items-center bg-background/95 backdrop-blur-xl border-2 border-primary/50 rounded-full lang-switcher-expand overflow-hidden group shadow-[0_10px_40px_rgba(0,0,0,0.5),0_0_20px_rgba(0,214,255,0.2)] hover:border-primary hover:shadow-[0_15px_50px_rgba(0,0,0,0.6),0_0_30px_rgba(0,214,255,0.4)] transition-all duration-500 ${isLangExpanded ? 'max-w-[240px] px-4' : 'max-w-[65px] px-0'}`}
+          style={{ height: '65px' }}
         >
           <button
             onClick={() => setIsLangExpanded(!isLangExpanded)}
-            className="flex items-center justify-center min-w-[60px] h-full transition-transform duration-500 group-hover:scale-110 pointer-events-auto"
+            className="flex items-center justify-center min-w-[65px] h-full transition-all duration-500 group-hover:scale-110 pointer-events-auto bg-primary/10 group-hover:bg-primary/20"
             aria-label="Toggle Language Menu"
           >
-            <Languages className={`w-6 h-6 text-primary transition-transform duration-500 ${isLangExpanded ? 'rotate-180' : 'rotate-0'}`} />
+            <Languages className={`w-7 h-7 text-primary transition-all duration-500 ${isLangExpanded ? 'rotate-180 scale-110' : 'rotate-0 scale-100'}`} />
           </button>
           
-          <div className={`flex items-center lang-text-fade ${isLangExpanded ? 'opacity-100 translate-x-0 w-auto ml-2 mr-2' : 'opacity-0 translate-x-8 w-0 pointer-events-none'}`}>
+          <div className={`flex items-center lang-text-fade ${isLangExpanded ? 'opacity-100 translate-x-0 w-auto ml-3 mr-3' : 'opacity-0 translate-x-10 w-0 pointer-events-none'}`}>
             <button
               onClick={(e) => {
                 e.stopPropagation();
                 toggleLanguage();
                 setIsLangExpanded(false);
               }}
-              className="whitespace-nowrap font-bold text-base text-foreground hover:text-primary transition-colors py-2 pointer-events-auto"
+              className="whitespace-nowrap font-black text-lg text-foreground hover:text-primary transition-all duration-300 py-2 px-4 rounded-xl hover:bg-primary/10 pointer-events-auto"
             >
               {currentLang === 'en' ? 'العربية' : 'English'}
             </button>
@@ -210,108 +176,84 @@ export default function Home() {
         </div>
       </div>
 
-      <nav className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-md border-b border-border/50 hover:border-border transition-all duration-300">
-        <div className={`container flex items-center justify-between h-16 ${isRtl ? 'flex-row-reverse' : ''}`}>
-          <a href="#" className="font-bold text-xl gradient-text hover:scale-110 transition-transform duration-300">
-            AT
-          </a>
-          
-          <div className={`hidden md:flex gap-8 ${isRtl ? 'flex-row-reverse' : ''}`}>
-            {navItems.map((item) => (
-              <a 
-                key={item.href}
-                href={item.href} 
-                className={`text-sm font-medium transition-all duration-300 relative group ${
-                  activeSection === item.href.substring(1) ? 'text-primary' : 'text-muted-foreground hover:text-primary'
-                }`}
-              >
-                {item.label}
-                <span className={`absolute -bottom-1 left-0 h-0.5 bg-primary transition-all duration-300 ${
-                  activeSection === item.href.substring(1) ? 'w-full' : 'w-0 group-hover:w-full'
-                }`}></span>
-              </a>
+      {/* Desktop Magic Navigation Menu */}
+      <nav className="hidden md:flex fixed top-0 left-1/2 -translate-x-1/2 z-50">
+        <div className="magic-nav">
+          <ul>
+            {navItems.map((item, index) => (
+              <li key={item.id} className={activeSection === item.id ? 'active' : ''}>
+                <a href={item.href} onClick={(e) => {
+                  e.preventDefault();
+                  document.getElementById(item.id)?.scrollIntoView({ behavior: 'smooth' });
+                }}>
+                  <span className="text">{item.label}</span>
+                  <span className="icon"><item.icon className="w-6 h-6" /></span>
+                </a>
+              </li>
             ))}
-          </div>
-
-          <div className="md:hidden">
-            <Sheet open={isMenuOpen} onOpenChange={setIsMenuOpen}>
-              <SheetTrigger asChild>
-                <Button 
-                  variant="ghost" 
-                  size="icon" 
-                  className="text-foreground hover:bg-primary/10 hover:text-primary transition-all duration-300 hover:scale-110 relative w-10 h-10 flex items-center justify-center"
-                >
-                  <div className="relative w-6 h-6 flex items-center justify-center">
-                    <Menu 
-                      className={`w-6 h-6 transition-all duration-500 absolute ${
-                        isMenuOpen 
-                          ? 'opacity-0 rotate-90 scale-0' 
-                          : 'opacity-100 rotate-0 scale-100'
-                      }`} 
-                    />
-                    <X 
-                      className={`w-6 h-6 transition-all duration-500 absolute ${
-                        isMenuOpen 
-                          ? 'opacity-100 rotate-0 scale-100' 
-                          : 'opacity-0 -rotate-90 scale-0'
-                      }`} 
-                    />
-                  </div>
-                </Button>
-              </SheetTrigger>
-              <SheetContent 
-                side={isRtl ? "left" : "right"} 
-                className="bg-background/95 backdrop-blur-xl border-primary/10 w-[300px] sm:w-[400px] transition-all duration-500 ease-out" 
-                showCloseButton={false}
-              >
-                <div className={`flex items-center gap-4 mb-8 ${isRtl ? 'flex-row-reverse' : ''}`}>
-                  <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center text-primary">
-                    <Menu className="w-6 h-6" />
-                  </div>
-                  <SheetTitle className={`text-2xl font-bold gradient-text ${isRtl ? 'text-right' : 'text-left'}`}>
-                    {isRtl ? 'القائمة' : 'Menu'}
-                  </SheetTitle>
-                </div>
-                <div className="flex flex-col gap-2 mt-4">
-                  {navItems.map((item, index) => (
-                    <a 
-                      key={item.href}
-                      href={item.href} 
-                      onClick={() => setIsMenuOpen(false)}
-                      className={`group flex items-center justify-between p-4 rounded-2xl hover:bg-primary/10 transition-all duration-500 animate-fade-in-up ${
-                        activeSection === item.href.substring(1) ? 'bg-primary/5 text-primary' : ''
-                      }`}
-                      style={{ animationDelay: `${(index + 1) * 100}ms` }}
-                    >
-                      <span className="text-xl font-medium text-muted-foreground group-hover:text-primary group-hover:translate-x-2 transition-all duration-300">
-                        {item.label}
-                      </span>
-                      <div className={`w-2 h-2 rounded-full bg-primary transition-all duration-300 shadow-[0_0_10px_rgba(0,214,255,0.8)] ${
-                        activeSection === item.href.substring(1) ? 'opacity-100 scale-125' : 'opacity-0 group-hover:opacity-100'
-                      }`}></div>
-                    </a>
-                  ))}
-                </div>
-                <div className="absolute bottom-10 left-0 right-0 px-8">
-                  <div className="h-px w-full bg-gradient-to-r from-transparent via-primary/20 to-transparent mb-8"></div>
-                  <p className="text-center text-sm text-muted-foreground">
-                    © {new Date().getFullYear()} <span className="gradient-text font-bold">Akill Talal</span>
-                  </p>
-                </div>
-              </SheetContent>
-            </Sheet>
-          </div>
+            <div 
+              className="indicator" 
+              style={{ 
+                transform: `translateX(${activeIndex * 100}px)`,
+                left: '0'
+              }}
+            ></div>
+          </ul>
         </div>
       </nav>
 
-      <main className="pt-16">
-        <HeroSection />
-        <AboutSection />
-        <ProjectsSection />
-        <SkillsSection />
-        <ExperienceSection />
-        <ContactSection />
+      {/* Mobile Curve Tab Menu */}
+      <nav className="md:hidden mobile-curve-nav">
+        <ul>
+          {navItems.map((item, index) => (
+            <li key={item.id} className={activeSection === item.id ? 'active' : ''}>
+              <a href={item.href} onClick={(e) => {
+                e.preventDefault();
+                document.getElementById(item.id)?.scrollIntoView({ behavior: 'smooth' });
+              }}>
+                <span className="icon"><item.icon className="w-6 h-6" /></span>
+                <span className="text">{item.label}</span>
+              </a>
+            </li>
+          ))}
+          <div 
+            className="indicator" 
+            style={{ 
+              transform: `translateX(calc(100vw / ${navItems.length} * ${activeIndex} + (100vw / ${navItems.length} / 2) - 35px))`,
+              left: '0'
+            }}
+          ></div>
+        </ul>
+      </nav>
+
+      <main className="relative">
+        <div id="hero" className="focus-section active">
+          <HeroSection />
+        </div>
+        <div id="about" className="focus-section">
+          <AboutSection />
+        </div>
+        <div id="projects" className="focus-section">
+          <ProjectsSection />
+        </div>
+        <div id="skills" className="focus-section">
+          <SkillsSection />
+        </div>
+        <div id="experience" className="focus-section">
+          <ExperienceSection />
+        </div>
+        <div id="contact" className="focus-section">
+          <ContactSection />
+        </div>
       </main>
+
+      <footer className="bg-card border-t border-border py-12 pb-32 md:pb-12">
+        <div className="container text-center">
+          <p className="text-muted-foreground">
+            © {new Date().getFullYear()} {currentLang === 'ar' ? 'أكيل طلال محيوب عبده' : 'Akill Talal Mahyoub Abdo'}. {t('footer.rights')}
+          </p>
+        </div>
+      </footer>
     </div>
   );
 }
