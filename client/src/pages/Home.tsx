@@ -6,23 +6,13 @@ import ExperienceSection from "@/components/ExperienceSection";
 import ContactSection from "@/components/ContactSection";
 import { useTranslation } from "react-i18next";
 import { Menu, X, Languages } from "lucide-react";
-import { Sheet, SheetContent, SheetTrigger, SheetTitle } from "@/components/ui/sheet";
-import { Button } from "@/components/ui/button";
 import { useEffect, useState, useRef } from "react";
 
-  // Detect if device is mobile
-  const isMobileDevice = () => {
-    if (typeof window === 'undefined') return false;
-    return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || window.innerWidth < 768;
-  };
-
-  const navItems = [
-    { href: "#about", label: t('nav.about'), icon: <HeroSection.IconAbout className="w-6 h-6" /> },
-    { href: "#projects", label: t('nav.projects'), icon: <HeroSection.IconProjects className="w-6 h-6" /> },
-    { href: "#skills", label: t('nav.skills'), icon: <HeroSection.IconSkills className="w-6 h-6" /> },
-    { href: "#experience", label: t('nav.experience'), icon: <HeroSection.IconExperience className="w-6 h-6" /> },
-    { href: "#contact", label: t('nav.contact'), icon: <HeroSection.IconContact className="w-6 h-6" /> },
-  ];
+// Detect if device is mobile
+const isMobileDevice = () => {
+  if (typeof window === 'undefined') return false;
+  return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || window.innerWidth < 768;
+};
 
 export default function Home() {
   const { t, i18n } = useTranslation();
@@ -35,13 +25,21 @@ export default function Home() {
     document.documentElement.dir = newLang === 'ar' ? 'rtl' : 'ltr';
     document.documentElement.lang = newLang;
   };
+
   const [activeSection, setActiveSection] = useState("");
   const [isLangExpanded, setIsLangExpanded] = useState(false);
   const [hoveredElement, setHoveredElement] = useState<string | null>(null);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const sectionRefs = useRef<Record<string, HTMLElement | null>>({});
   const hoverTimeoutRef = useRef<NodeJS.Timeout | null>(null);
   const elementListenersRef = useRef<Map<Element, { enter: () => void; leave: () => void }>>(new Map());
+
+  const navItems = [
+    { href: "#about", label: t('nav.about'), id: "about", icon: <HeroSection.IconAbout className="w-6 h-6" /> },
+    { href: "#projects", label: t('nav.projects'), id: "projects", icon: <HeroSection.IconProjects className="w-6 h-6" /> },
+    { href: "#skills", label: t('nav.skills'), id: "skills", icon: <HeroSection.IconSkills className="w-6 h-6" /> },
+    { href: "#experience", label: t('nav.experience'), id: "experience", icon: <HeroSection.IconExperience className="w-6 h-6" /> },
+    { href: "#contact", label: t('nav.contact'), id: "contact", icon: <HeroSection.IconContact className="w-6 h-6" /> },
+  ];
 
   // Smooth scroll with performance optimization
   useEffect(() => {
@@ -73,15 +71,11 @@ export default function Home() {
     const handleIntersect = (entries: IntersectionObserverEntry[]) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting && entry.intersectionRatio > 0.5) {
-          // Only add active class if not currently hovered
           if (!hoveredElement) {
-            // Remove active from others first to ensure only one is focused
             document.querySelectorAll(".focus-section.active").forEach(el => el.classList.remove("active"));
             entry.target.classList.add("active");
-            // Add mobile-specific class for scroll focus effects
             if (isMobile) {
               entry.target.classList.add("mobile-scroll-focus");
-              // Enhanced mobile focus: dim others
               document.querySelectorAll(".focus-section").forEach(el => {
                 if (el !== entry.target) el.classList.add("mobile-dimmed");
                 else el.classList.remove("mobile-dimmed");
@@ -104,17 +98,12 @@ export default function Home() {
     const observeElements = () => {
       const elements = document.querySelectorAll(".scroll-reveal, .focus-section");
       elements.forEach((el) => {
-        // Skip if already observed
-        if (elementListenersRef.current.has(el)) {
-          return;
-        }
+        if (elementListenersRef.current.has(el)) return;
 
         observer.observe(el);
         
-        // Create event handlers for this element
         const handleMouseEnter = () => {
           setHoveredElement(el.id);
-          // Remove active from all focus-sections when hovering
           document.querySelectorAll(".focus-section.active").forEach((e) => {
             e.classList.remove("active");
           });
@@ -122,10 +111,7 @@ export default function Home() {
         
         const handleMouseLeave = () => {
           setHoveredElement(null);
-          // Restore active to the currently visible section based on scroll position
-          if (hoverTimeoutRef.current) {
-            clearTimeout(hoverTimeoutRef.current);
-          }
+          if (hoverTimeoutRef.current) clearTimeout(hoverTimeoutRef.current);
           hoverTimeoutRef.current = setTimeout(() => {
             const visibleSections = document.querySelectorAll(".focus-section");
             visibleSections.forEach((section) => {
@@ -137,25 +123,15 @@ export default function Home() {
           }, 100);
         };
 
-        // Store listeners for cleanup
         elementListenersRef.current.set(el, { enter: handleMouseEnter, leave: handleMouseLeave });
         
-        // Only add hover listeners on desktop
         if (!isMobile) {
           el.addEventListener("mouseenter", handleMouseEnter);
           el.addEventListener("mouseleave", handleMouseLeave);
         }
         
-        // Mobile touch handling to prevent sticky hover
-        const handleTouchStart = () => {
-          if (isMobile) handleMouseEnter();
-        };
-        const handleTouchEnd = () => {
-          // Small delay to allow click events but clear hover state
-          if (isMobile) {
-            setTimeout(handleMouseLeave, 150);
-          }
-        };
+        const handleTouchStart = () => { if (isMobile) handleMouseEnter(); };
+        const handleTouchEnd = () => { if (isMobile) setTimeout(handleMouseLeave, 150); };
         
         el.addEventListener("touchstart", handleTouchStart, { passive: true });
         el.addEventListener("touchend", handleTouchEnd, { passive: true });
@@ -173,10 +149,7 @@ export default function Home() {
     return () => {
       observer.disconnect();
       mutationObserver.disconnect();
-      if (hoverTimeoutRef.current) {
-        clearTimeout(hoverTimeoutRef.current);
-      }
-      // Clean up event listeners
+      if (hoverTimeoutRef.current) clearTimeout(hoverTimeoutRef.current);
       elementListenersRef.current.forEach((listeners, el) => {
         el.removeEventListener("mouseenter", listeners.enter);
         el.removeEventListener("mouseleave", listeners.leave);
@@ -185,17 +158,11 @@ export default function Home() {
     };
   }, [hoveredElement]);
 
-  const navItems = [
-    { href: "#about", label: t('nav.about') },
-    { href: "#projects", label: t('nav.projects') },
-    { href: "#skills", label: t('nav.skills') },
-    { href: "#experience", label: t('nav.experience') },
-    { href: "#contact", label: t('nav.contact') },
-  ];
+  const activeIndex = navItems.findIndex(item => item.id === activeSection);
 
   return (
     <div className={`min-h-screen bg-background text-foreground ${isRtl ? 'rtl' : 'ltr'}`}>
-      {/* Language Switcher Floating Button - Enhanced Shadow & Prominence */}
+      {/* Language Switcher Floating Button */}
       <div className={`fixed bottom-8 ${isRtl ? 'left-8' : 'right-8'} z-[100] pointer-events-auto`}>
         <div 
           className={`flex items-center bg-background/90 backdrop-blur-md border border-primary/40 rounded-full shadow-[0_10px_40px_rgba(0,0,0,0.5),0_0_20px_rgba(37,150,190,0.3)] lang-switcher-expand overflow-hidden group hover:border-primary hover:shadow-[0_0_30px_rgba(37,150,190,0.6)] ${isLangExpanded ? 'max-w-[240px] px-4' : 'max-w-[70px] px-0'}`}
@@ -204,7 +171,6 @@ export default function Home() {
           <button
             onClick={() => setIsLangExpanded(!isLangExpanded)}
             className="flex items-center justify-center min-w-[70px] h-full transition-transform duration-500 group-hover:scale-110 pointer-events-auto"
-            aria-label="Toggle Language Menu"
           >
             <Languages className={`w-8 h-8 text-primary transition-transform duration-500 ${isLangExpanded ? 'rotate-180' : 'rotate-0'}`} />
           </button>
@@ -224,7 +190,7 @@ export default function Home() {
         </div>
       </div>
 
-      {/* Desktop Magic Navigation - Visible only on MD and up */}
+      {/* Desktop Magic Navigation */}
       <nav className="fixed top-0 left-0 right-0 z-50 hidden md:flex justify-center pt-6 pointer-events-none">
         <div className="magic-nav-container pointer-events-auto">
           <div className="magic-navigation">
@@ -232,7 +198,7 @@ export default function Home() {
               {navItems.map((item, index) => (
                 <li 
                   key={item.href} 
-                  className={`magic-list ${activeSection === item.href.substring(1) ? 'active' : ''}`}
+                  className={`magic-list ${activeSection === item.id ? 'active' : ''}`}
                 >
                   <a href={item.href} className="flex flex-col items-center justify-center text-center">
                     <span className="magic-text">{item.label}</span>
@@ -245,7 +211,8 @@ export default function Home() {
               <div 
                 className="magic-indicator" 
                 style={{ 
-                  transform: `translateX(calc(80px * ${navItems.findIndex(item => item.href.substring(1) === activeSection)}))` 
+                  transform: `translateX(calc(80px * ${activeIndex >= 0 ? activeIndex : 0}))`,
+                  opacity: activeIndex >= 0 ? 1 : 0
                 }}
               ></div>
             </ul>
@@ -253,7 +220,7 @@ export default function Home() {
         </div>
       </nav>
 
-      {/* Mobile Curve Menu - Visible only on small screens */}
+      {/* Mobile Curve Menu */}
       <div className="md:hidden">
         <div className={`mobile-curve-nav-overlay ${isMenuOpen ? 'active' : ''}`} onClick={() => setIsMenuOpen(false)}></div>
         <div className={`mobile-curve-navigation ${isMenuOpen ? 'active' : ''}`}>
@@ -264,7 +231,7 @@ export default function Home() {
             {navItems.map((item) => (
               <li 
                 key={item.href} 
-                className={`mobile-list ${activeSection === item.href.substring(1) ? 'active' : ''}`}
+                className={`mobile-list ${activeSection === item.id ? 'active' : ''}`}
                 onClick={() => setIsMenuOpen(false)}
               >
                 <a href={item.href} className="flex items-center">
