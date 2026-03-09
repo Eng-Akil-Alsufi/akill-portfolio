@@ -25,10 +25,10 @@ export default function Home() {
     document.documentElement.dir = newLang === 'ar' ? 'rtl' : 'ltr';
     document.documentElement.lang = newLang;
   };
-
   const [activeSection, setActiveSection] = useState("about");
+  const [isLangExpanded, setIsLangExpanded] = useState(false);
+  const [hoveredElement, setHoveredElement] = useState<string | null>(null);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [isMenuExpanded, setIsMenuExpanded] = useState(false);
   const elementListenersRef = useRef<Map<Element, { enter: () => void; leave: () => void }>>(new Map());
 
   useEffect(() => {
@@ -36,33 +36,61 @@ export default function Home() {
     const observerOptions = {
       root: null,
       rootMargin: "-20% 0px -20% 0px",
-      threshold: [0, 0.5],
+      threshold: [0, 0.1, 0.5],
     };
 
     const handleIntersect = (entries: IntersectionObserverEntry[]) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting && entry.intersectionRatio > 0.4) {
-          document.querySelectorAll(".focus-section.active").forEach(el => el.classList.remove("active"));
-          entry.target.classList.add("active");
-          if (isMobile) {
-            entry.target.classList.add("mobile-scroll-focus");
-          }
-          setActiveSection(entry.target.id);
-        } else if (!entry.isIntersecting) {
-          entry.target.classList.remove("active");
-          if (isMobile) {
-            entry.target.classList.remove("mobile-scroll-focus");
+          if (!hoveredElement) {
+            document.querySelectorAll(".focus-section.active").forEach(el => el.classList.remove("active"));
+            entry.target.classList.add("active");
+            setActiveSection(entry.target.id);
           }
         }
       });
     };
 
     const observer = new IntersectionObserver(handleIntersect, observerOptions);
-    const elements = document.querySelectorAll(".focus-section");
-    elements.forEach((el) => observer.observe(el));
+    
+    const observeElements = () => {
+      const elements = document.querySelectorAll(".scroll-reveal, .focus-section");
+      elements.forEach((el) => {
+        if (elementListenersRef.current.has(el)) return;
+        observer.observe(el);
+        
+        const handleMouseEnter = () => {
+          setHoveredElement(el.id);
+          document.querySelectorAll(".focus-section.active").forEach((e) => e.classList.remove("active"));
+        };
+        
+        const handleMouseLeave = () => {
+          setHoveredElement(null);
+        };
 
-    return () => observer.disconnect();
-  }, []);
+        elementListenersRef.current.set(el, { enter: handleMouseEnter, leave: handleMouseLeave });
+        
+        if (!isMobile) {
+          el.addEventListener("mouseenter", handleMouseEnter);
+          el.addEventListener("mouseleave", handleMouseLeave);
+        }
+      });
+    };
+
+    observeElements();
+    const mutationObserver = new MutationObserver(() => observeElements());
+    mutationObserver.observe(document.body, { childList: true, subtree: true });
+
+    return () => {
+      observer.disconnect();
+      mutationObserver.disconnect();
+      elementListenersRef.current.forEach((listeners, el) => {
+        el.removeEventListener("mouseenter", listeners.enter);
+        el.removeEventListener("mouseleave", listeners.leave);
+      });
+      elementListenersRef.current.clear();
+    };
+  }, [hoveredElement]);
 
   const navItems = [
     { href: "#about", label: t('nav.about'), icon: User, id: 'about' },
@@ -75,89 +103,105 @@ export default function Home() {
   return (
     <div className={`min-h-screen bg-background text-foreground ${isRtl ? 'rtl' : 'ltr'}`}>
       
-      {/* Language Switcher Floating Button */}
-      <button 
-        onClick={toggleLanguage}
-        className="lang-switcher-btn"
-        aria-label="Toggle Language"
-      >
-        <Languages className="w-6 h-6" />
-      </button>
-
-      {/* Desktop Navigation - Curve Outside Magic (TOP POSITION) */}
-      <nav className="hidden md:flex fixed top-0 left-0 right-0 z-50 justify-center pointer-events-none">
-        <div className="magic-nav pointer-events-auto">
+      {/* Desktop Navigation - Curve Outside Magic Style */}
+      <div className="desktop-nav-container">
+        <div className="desktop-navigation">
           <ul>
             {navItems.map((item, index) => {
               const Icon = item.icon;
               const isActive = activeSection === item.id;
               return (
-                <li key={item.href} className={`list ${isActive ? 'active' : ''}`}>
-                  <a href={item.href} onClick={() => setActiveSection(item.id)}>
+                <li key={item.id} className={`list ${isActive ? 'active' : ''}`}>
+                  <a href={item.href}>
+                    <span className="icon"><Icon size={24} /></span>
                     <span className="text">{item.label}</span>
-                    <span className="icon">
-                      <Icon className="w-6 h-6" />
-                    </span>
                   </a>
                 </li>
               );
             })}
-            <div className="magic-indicator"></div>
+            <div className="indicator"></div>
           </ul>
         </div>
-      </nav>
+      </div>
 
-      {/* Mobile Menu - Curve Tab Style */}
-      <div className="md:hidden">
-        {/* Hamburger Button */}
-        <button 
-          onClick={() => setIsMenuOpen(!isMenuOpen)}
-          className="fixed top-4 right-4 z-[1100] w-12 h-12 bg-[#2B343B] rounded-full flex items-center justify-center text-white border-2 border-primary shadow-lg"
+      {/* Mobile Navigation - Curve Tab Style */}
+      <div className="mobile-nav-container">
+        <div className={`mobile-toggle`} onClick={() => setIsMenuOpen(!isMenuOpen)}>
+          {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
+        </div>
+        <div className={`mobile-navigation ${isMenuOpen ? 'open' : ''}`}>
+          <ul>
+            {navItems.map((item) => {
+              const Icon = item.icon;
+              const isActive = activeSection === item.id;
+              return (
+                <li key={item.id} className={`${isActive ? 'active' : ''}`} onClick={() => setIsMenuOpen(false)}>
+                  <a href={item.href}>
+                    <span className="icon"><Icon size={24} /></span>
+                    <span className="title">{item.label}</span>
+                  </a>
+                </li>
+              );
+            })}
+          </ul>
+        </div>
+      </div>
+
+      {/* Language Switcher Floating Button */}
+      <div className={`fixed bottom-8 ${isRtl ? 'left-8' : 'right-8'} z-[100] pointer-events-auto`}>
+        <div 
+          className={`flex items-center bg-background/90 backdrop-blur-md border border-primary/40 rounded-full shadow-xl lang-switcher-expand overflow-hidden group hover:border-primary ${isLangExpanded ? 'max-w-[220px] px-4' : 'max-w-[60px] px-0'}`}
+          style={{ height: '60px' }}
         >
-          {isMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-        </button>
-
-        {/* Navigation Container */}
-        <div className={`mobile-nav-container ${isMenuOpen ? 'open' : ''}`} onClick={() => setIsMenuOpen(false)}>
-          <div 
-            className={`mobile-navigation ${isMenuExpanded ? 'expanded' : ''}`} 
-            onClick={(e) => {
-              e.stopPropagation();
-              setIsMenuExpanded(!isMenuExpanded);
-            }}
+          <button
+            onClick={() => setIsLangExpanded(!isLangExpanded)}
+            className="flex items-center justify-center min-w-[60px] h-full transition-transform duration-500 group-hover:scale-110 pointer-events-auto"
+            aria-label="Toggle Language Menu"
           >
-            <ul>
-              {navItems.map((item) => {
-                const Icon = item.icon;
-                const isActive = activeSection === item.id;
-                return (
-                  <li key={item.href} className={`list ${isActive ? 'active' : ''}`}>
-                    <a href={item.href} onClick={(e) => {
-                      e.stopPropagation();
-                      setActiveSection(item.id);
-                      setIsMenuOpen(false);
-                    }}>
-                      <span className="icon">
-                        <Icon className="w-6 h-6" />
-                      </span>
-                      <span className="title">{item.label}</span>
-                    </a>
-                  </li>
-                );
-              })}
-            </ul>
+            <Languages className={`w-6 h-6 text-primary transition-transform duration-500 ${isLangExpanded ? 'rotate-180' : 'rotate-0'}`} />
+          </button>
+          
+          <div className={`flex items-center lang-text-fade ${isLangExpanded ? 'opacity-100 translate-x-0 w-auto ml-2 mr-2' : 'opacity-0 translate-x-8 w-0 pointer-events-none'}`}>
+            <button
+              onClick={(e) => {
+                e.stopPropagation();
+                toggleLanguage();
+                setIsLangExpanded(false);
+              }}
+              className="whitespace-nowrap font-bold text-base text-foreground hover:text-primary transition-colors py-2 pointer-events-auto"
+            >
+              {currentLang === 'en' ? 'العربية' : 'English'}
+            </button>
           </div>
         </div>
       </div>
 
-      <main className="pt-24 md:pt-32">
-        <HeroSection />
-        <AboutSection />
-        <ProjectsSection />
-        <SkillsSection />
-        <ExperienceSection />
-        <ContactSection />
+      <main className="relative">
+        <section id="hero" className="focus-section active">
+          <HeroSection />
+        </section>
+        <section id="about" className="focus-section scroll-reveal">
+          <AboutSection />
+        </section>
+        <section id="projects" className="focus-section scroll-reveal">
+          <ProjectsSection />
+        </section>
+        <section id="skills" className="focus-section scroll-reveal">
+          <SkillsSection />
+        </section>
+        <section id="experience" className="focus-section scroll-reveal">
+          <ExperienceSection />
+        </section>
+        <section id="contact" className="focus-section scroll-reveal">
+          <ContactSection />
+        </section>
       </main>
+
+      <footer className="py-12 border-t border-border/50 bg-background/50 backdrop-blur-sm">
+        <div className="container text-center text-muted-foreground">
+          <p>© {new Date().getFullYear()} {t('hero.name')}. {t('footer.rights')}</p>
+        </div>
+      </footer>
     </div>
   );
 }
