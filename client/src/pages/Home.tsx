@@ -11,7 +11,7 @@ import { useEffect, useState, useRef } from "react";
 // Detect if device is mobile
 const isMobileDevice = () => {
   if (typeof window === 'undefined') return false;
-  return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || window.innerWidth < 768;
+  return window.innerWidth < 768;
 };
 
 export default function Home() {
@@ -25,114 +25,48 @@ export default function Home() {
     document.documentElement.dir = newLang === 'ar' ? 'rtl' : 'ltr';
     document.documentElement.lang = newLang;
   };
+
   const [activeSection, setActiveSection] = useState("hero");
-  const [isLangExpanded, setIsLangExpanded] = useState(false);
-  const [hoveredElement, setHoveredElement] = useState<string | null>(null);
-  const hoverTimeoutRef = useRef<NodeJS.Timeout | null>(null);
-  const elementListenersRef = useRef<Map<Element, { enter: () => void; leave: () => void }>>(new Map());
+  const [isMobile, setIsMobile] = useState(false);
 
-  // Smooth scroll with performance optimization
   useEffect(() => {
-    let scrollTimeout: NodeJS.Timeout;
-    let isScrolling = false;
-
-    const handleScroll = () => {
-      if (!isScrolling) {
-        isScrolling = true;
-        clearTimeout(scrollTimeout);
-        scrollTimeout = setTimeout(() => {
-          isScrolling = false;
-        }, 100);
-      }
-    };
-
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll, true as any);
+    const checkMobile = () => setIsMobile(isMobileDevice());
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
   }, []);
 
+  // Intersection Observer for Scroll Focus (Mobile Only) and Navigation Sync
   useEffect(() => {
-    const isMobile = isMobileDevice();
     const observerOptions = {
       root: null,
       rootMargin: "-20% 0px -20% 0px",
-      threshold: [0, 0.1, 0.5],
+      threshold: [0, 0.2, 0.5],
     };
 
     const handleIntersect = (entries: IntersectionObserverEntry[]) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting && entry.intersectionRatio > 0.4) {
-          if (!hoveredElement) {
-            document.querySelectorAll(".focus-section.active").forEach(el => el.classList.remove("active"));
+          setActiveSection(entry.target.id);
+          
+          // Scroll focus effect only on mobile
+          if (isMobileDevice()) {
             entry.target.classList.add("active");
-            if (isMobile) {
-              entry.target.classList.add("mobile-scroll-focus");
-            }
-            setActiveSection(entry.target.id);
+          } else {
+            entry.target.classList.remove("active");
           }
-        } else if (!entry.isIntersecting || entry.intersectionRatio < 0.2) {
+        } else {
           entry.target.classList.remove("active");
-          if (isMobile) {
-            entry.target.classList.remove("mobile-scroll-focus");
-          }
         }
       });
     };
 
     const observer = new IntersectionObserver(handleIntersect, observerOptions);
-    
-    const observeElements = () => {
-      const elements = document.querySelectorAll(".scroll-reveal, .focus-section");
-      elements.forEach((el) => {
-        if (elementListenersRef.current.has(el)) return;
+    const sections = document.querySelectorAll(".focus-section");
+    sections.forEach(section => observer.observe(section));
 
-        observer.observe(el);
-        
-        const handleMouseEnter = () => {
-          setHoveredElement(el.id);
-          document.querySelectorAll(".focus-section.active").forEach((e) => {
-            e.classList.remove("active");
-          });
-        };
-        
-        const handleMouseLeave = () => {
-          setHoveredElement(null);
-          if (hoverTimeoutRef.current) clearTimeout(hoverTimeoutRef.current);
-          hoverTimeoutRef.current = setTimeout(() => {
-            const visibleSections = document.querySelectorAll(".focus-section");
-            visibleSections.forEach((section) => {
-              const rect = (section as HTMLElement).getBoundingClientRect();
-              if (rect.top < window.innerHeight * 0.8 && rect.bottom > window.innerHeight * 0.2) {
-                section.classList.add("active");
-                setActiveSection(section.id);
-              }
-            });
-          }, 100);
-        };
-
-        elementListenersRef.current.set(el, { enter: handleMouseEnter, leave: handleMouseLeave });
-        
-        if (!isMobile) {
-          el.addEventListener("mouseenter", handleMouseEnter);
-          el.addEventListener("mouseleave", handleMouseLeave);
-        }
-      });
-    };
-
-    observeElements();
-    const mutationObserver = new MutationObserver(() => observeElements());
-    mutationObserver.observe(document.body, { childList: true, subtree: true });
-
-    return () => {
-      observer.disconnect();
-      mutationObserver.disconnect();
-      if (hoverTimeoutRef.current) clearTimeout(hoverTimeoutRef.current);
-      elementListenersRef.current.forEach((listeners, el) => {
-        el.removeEventListener("mouseenter", listeners.enter);
-        el.removeEventListener("mouseleave", listeners.leave);
-      });
-      elementListenersRef.current.clear();
-    };
-  }, [hoveredElement]);
+    return () => observer.disconnect();
+  }, [isMobile]);
 
   const navItems = [
     { id: "hero", href: "#hero", label: isRtl ? "الرئيسية" : "Home", icon: HomeIcon },
@@ -145,89 +79,82 @@ export default function Home() {
 
   const activeIndex = navItems.findIndex(item => item.id === activeSection);
 
+  const scrollToSection = (id: string) => {
+    const element = document.getElementById(id);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   return (
-    <div className={`min-h-screen bg-background text-foreground ${isRtl ? 'rtl' : 'ltr'}`}>
-      {/* Language Switcher Floating Button */}
-      <div className={`fixed bottom-24 md:bottom-8 ${isRtl ? 'left-8' : 'right-8'} z-[100] pointer-events-auto`}>
-        <div 
-          className={`flex items-center bg-background/95 backdrop-blur-xl border-2 border-primary/50 rounded-full lang-switcher-expand overflow-hidden group shadow-[0_10px_40px_rgba(0,0,0,0.5),0_0_20px_rgba(0,214,255,0.2)] hover:border-primary hover:shadow-[0_15px_50px_rgba(0,0,0,0.6),0_0_30px_rgba(0,214,255,0.4)] transition-all duration-500 ${isLangExpanded ? 'max-w-[240px] px-4' : 'max-w-[65px] px-0'}`}
-          style={{ height: '65px' }}
+    <div className={`min-h-screen bg-background text-foreground blur-fix ${isRtl ? 'rtl' : 'ltr'}`}>
+      
+      {/* LANGUAGE SWITCHER - Fixed, clear and smaller on mobile */}
+      <div className="lang-btn-container">
+        <button 
+          onClick={toggleLanguage}
+          className="lang-btn"
+          aria-label="Toggle Language"
         >
-          <button
-            onClick={() => setIsLangExpanded(!isLangExpanded)}
-            className="flex items-center justify-center min-w-[65px] h-full transition-all duration-500 group-hover:scale-110 pointer-events-auto bg-primary/10 group-hover:bg-primary/20"
-            aria-label="Toggle Language Menu"
-          >
-            <Languages className={`w-7 h-7 text-primary transition-all duration-500 ${isLangExpanded ? 'rotate-180 scale-110' : 'rotate-0 scale-100'}`} />
-          </button>
-          
-          <div className={`flex items-center lang-text-fade ${isLangExpanded ? 'opacity-100 translate-x-0 w-auto ml-3 mr-3' : 'opacity-0 translate-x-10 w-0 pointer-events-none'}`}>
-            <button
-              onClick={(e) => {
-                e.stopPropagation();
-                toggleLanguage();
-                setIsLangExpanded(false);
-              }}
-              className="whitespace-nowrap font-black text-lg text-foreground hover:text-primary transition-all duration-300 py-2 px-4 rounded-xl hover:bg-primary/10 pointer-events-auto"
-            >
-              {currentLang === 'en' ? 'العربية' : 'English'}
-            </button>
+          <div className="icon-box">
+            <Languages className="w-5 h-5 md:w-6 md:h-6" />
           </div>
-        </div>
+          <span className="px-2 font-bold text-sm md:text-base text-gray-800">
+            {currentLang === 'en' ? 'العربية' : 'English'}
+          </span>
+        </button>
       </div>
 
-      {/* Desktop Magic Navigation Menu */}
-      <nav className="hidden md:flex fixed top-0 left-1/2 -translate-x-1/2 z-50">
-        <div className="magic-nav">
+      {/* DESKTOP NAVIGATION - Magic Curve Style (Top) */}
+      {!isMobile && (
+        <div className="magic-nav-container">
+          <nav className="magic-nav">
+            <ul>
+              {navItems.map((item, index) => (
+                <li key={item.id} className={activeSection === item.id ? 'active' : ''}>
+                  <a href={item.href} onClick={(e) => {
+                    e.preventDefault();
+                    scrollToSection(item.id);
+                  }}>
+                    <span className="text">{item.label}</span>
+                    <span className="icon"><item.icon className="w-6 h-6" /></span>
+                  </a>
+                </li>
+              ))}
+              <div 
+                className="indicator" 
+                style={{ 
+                  transform: `translateX(${activeIndex * 90}px)`,
+                  left: '0'
+                }}
+              ></div>
+            </ul>
+          </nav>
+        </div>
+      )}
+
+      {/* MOBILE NAVIGATION - Curve Sidebar Style (Right) */}
+      {isMobile && (
+        <nav className="mobile-nav-sidebar">
           <ul>
-            {navItems.map((item, index) => (
+            {navItems.map((item) => (
               <li key={item.id} className={activeSection === item.id ? 'active' : ''}>
                 <a href={item.href} onClick={(e) => {
                   e.preventDefault();
-                  document.getElementById(item.id)?.scrollIntoView({ behavior: 'smooth' });
+                  scrollToSection(item.id);
                 }}>
-                  <span className="text">{item.label}</span>
                   <span className="icon"><item.icon className="w-6 h-6" /></span>
+                  <span className="title">{item.label}</span>
                 </a>
               </li>
             ))}
-            <div 
-              className="indicator" 
-              style={{ 
-                transform: `translateX(${activeIndex * 100}px)`,
-                left: '0'
-              }}
-            ></div>
           </ul>
-        </div>
-      </nav>
+        </nav>
+      )}
 
-      {/* Mobile Curve Tab Menu */}
-      <nav className="md:hidden mobile-curve-nav">
-        <ul>
-          {navItems.map((item, index) => (
-            <li key={item.id} className={activeSection === item.id ? 'active' : ''}>
-              <a href={item.href} onClick={(e) => {
-                e.preventDefault();
-                document.getElementById(item.id)?.scrollIntoView({ behavior: 'smooth' });
-              }}>
-                <span className="icon"><item.icon className="w-6 h-6" /></span>
-                <span className="text">{item.label}</span>
-              </a>
-            </li>
-          ))}
-          <div 
-            className="indicator" 
-            style={{ 
-              transform: `translateX(calc(100vw / ${navItems.length} * ${activeIndex} + (100vw / ${navItems.length} / 2) - 35px))`,
-              left: '0'
-            }}
-          ></div>
-        </ul>
-      </nav>
-
-      <main className="relative">
-        <div id="hero" className="focus-section active">
+      {/* MAIN CONTENT */}
+      <main className="relative pt-24 md:pt-32">
+        <div id="hero" className="focus-section">
           <HeroSection />
         </div>
         <div id="about" className="focus-section">
@@ -247,7 +174,7 @@ export default function Home() {
         </div>
       </main>
 
-      <footer className="bg-card border-t border-border py-12 pb-32 md:pb-12">
+      <footer className="bg-card border-t border-border py-12">
         <div className="container text-center">
           <p className="text-muted-foreground">
             © {new Date().getFullYear()} {currentLang === 'ar' ? 'أكيل طلال محيوب عبده' : 'Akill Talal Mahyoub Abdo'}. {t('footer.rights')}
