@@ -167,7 +167,7 @@ export default function ProjectsSection() {
               className="group animate-fade-in-up"
               style={{ animationDelay: `${index * 100}ms` }}
             >
-              <div className={`h-full bg-card border border-border rounded-2xl overflow-hidden hover:border-primary/50 transition-all duration-500 hover:shadow-2xl hover:shadow-primary/20 hover:-translate-y-3 flex flex-col ${isRtl ? 'text-right' : 'text-left'} relative hover-lift-card card-tilt group/card`}>
+              <div className={`h-full bg-card border border-border rounded-2xl overflow-hidden hover:border-primary/50 transition-all duration-500 hover:shadow-2xl hover:shadow-primary/20 flex flex-col ${isRtl ? 'text-right' : 'text-left'} relative hover-lift-card card-tilt group/card hover-card-effect`}>
                 <div className="absolute inset-0 shimmer-effect opacity-0 group-hover/card:opacity-100 transition-opacity duration-700"></div>
                 {/* Neon border glow on hover */}
                 <div className="absolute inset-0 rounded-2xl border-2 border-primary/0 group-hover/card:border-primary/30 transition-all duration-500 pointer-events-none"></div>

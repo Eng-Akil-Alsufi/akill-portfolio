@@ -64,7 +64,7 @@ export default function AboutSection() {
           {/* Introduction & Education */}
           <div className="space-y-8">
             {/* Introduction */}
-            <div className="glass-effect p-8 rounded-3xl border border-primary/10 hover:border-primary/50 transition-all duration-500 hover:shadow-2xl hover:shadow-primary/20 hover:-translate-y-3 animate-card-slide-left hover-lift-card card-tilt group relative overflow-hidden" style={{ animationDelay: '0ms' }}>
+            <div className="glass-effect p-8 rounded-3xl border border-primary/10 hover:border-primary/50 transition-all duration-500 hover:shadow-2xl hover:shadow-primary/20 animate-card-slide-left hover-lift-card card-tilt group relative overflow-hidden hover-card-effect" style={{ animationDelay: '0ms' }}>
               <div className="absolute inset-0 shimmer-effect opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none"></div>
               <div className={`flex items-center gap-3 mb-6 relative z-10 ${isRtl ? 'flex-row-reverse' : ''}`}>
                 <div className="p-3 rounded-xl bg-primary/10 text-primary group-hover:bg-primary group-hover:text-white transition-all duration-500 transform group-hover:scale-110 group-hover:rotate-12 shadow-lg shadow-primary/5">
@@ -78,7 +78,7 @@ export default function AboutSection() {
             </div>
 
             {/* Education */}
-            <div className="glass-effect p-8 rounded-3xl border border-primary/10 hover:border-primary/50 transition-all duration-500 hover:shadow-2xl hover:shadow-primary/20 hover:-translate-y-3 animate-card-slide-right hover-lift-card card-tilt group relative overflow-hidden" style={{ animationDelay: '100ms' }}>
+            <div className="glass-effect p-8 rounded-3xl border border-primary/10 hover:border-primary/50 transition-all duration-500 hover:shadow-2xl hover:shadow-primary/20 animate-card-slide-right hover-lift-card card-tilt group relative overflow-hidden hover-card-effect" style={{ animationDelay: '100ms' }}>
               <div className="absolute inset-0 shimmer-effect opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none"></div>
               <div className={`flex items-center gap-3 mb-6 relative z-10 ${isRtl ? 'flex-row-reverse' : ''}`}>
                 <div className="p-3 rounded-xl bg-primary/10 text-primary group-hover:bg-primary group-hover:text-white transition-all duration-500 transform group-hover:scale-110 group-hover:rotate-12 shadow-lg shadow-primary/5">
@@ -106,7 +106,7 @@ export default function AboutSection() {
           {/* Languages & Certificates */}
           <div className="space-y-8">
             {/* Languages */}
-            <div className="glass-effect p-8 rounded-3xl border border-primary/10 hover:border-primary/50 transition-all duration-500 hover:shadow-2xl hover:shadow-primary/20 hover:-translate-y-3 animate-card-slide-left hover-lift-card card-tilt group relative overflow-hidden" style={{ animationDelay: '200ms' }}>
+            <div className="glass-effect p-8 rounded-3xl border border-primary/10 hover:border-primary/50 transition-all duration-500 hover:shadow-2xl hover:shadow-primary/20 animate-card-slide-left hover-lift-card card-tilt group relative overflow-hidden hover-card-effect" style={{ animationDelay: '200ms' }}>
               <div className="absolute inset-0 shimmer-effect opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none"></div>
               <div className={`flex items-center gap-3 mb-6 relative z-10 ${isRtl ? 'flex-row-reverse' : ''}`}>
                 <div className="p-3 rounded-xl bg-primary/10 text-primary group-hover:bg-primary group-hover:text-white transition-all duration-500 transform group-hover:scale-110 group-hover:rotate-12 shadow-lg shadow-primary/5">
@@ -133,7 +133,7 @@ export default function AboutSection() {
             </div>
 
             {/* Certificates - Dynamic Section */}
-            <div className="glass-effect p-8 rounded-3xl border border-primary/10 hover:border-primary/50 transition-all duration-500 hover:shadow-2xl hover:shadow-primary/20 hover:-translate-y-3 animate-card-slide-right hover-lift-card card-tilt group relative overflow-hidden" style={{ animationDelay: '300ms' }}>
+            <div className="glass-effect p-8 rounded-3xl border border-primary/10 hover:border-primary/50 transition-all duration-500 hover:shadow-2xl hover:shadow-primary/20 animate-card-slide-right hover-lift-card card-tilt group relative overflow-hidden hover-card-effect" style={{ animationDelay: '300ms' }}>
               {/* Added pointer-events-none to shimmer to prevent blocking clicks */}
               <div className="absolute inset-0 shimmer-effect opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none"></div>
               
