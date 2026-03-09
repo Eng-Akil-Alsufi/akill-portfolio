@@ -6,7 +6,7 @@ import ExperienceSection from "@/components/ExperienceSection";
 import ContactSection from "@/components/ContactSection";
 import { useTranslation } from "react-i18next";
 import { Languages, User, Briefcase, Code, GraduationCap, Mail, Home as HomeIcon } from "lucide-react";
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState } from "react";
 
 // Detect if device is mobile
 const isMobileDevice = () => {
@@ -36,7 +36,7 @@ export default function Home() {
     return () => window.removeEventListener('resize', checkMobile);
   }, []);
 
-  // Intersection Observer for Scroll Focus (Mobile Only) and Navigation Sync
+  // Intersection Observer for Scroll Focus and Navigation Sync
   useEffect(() => {
     const observerOptions = {
       root: null,
@@ -89,23 +89,28 @@ export default function Home() {
   return (
     <div className={`min-h-screen bg-background text-foreground blur-fix ${isRtl ? 'rtl' : 'ltr'}`}>
       
-      {/* LANGUAGE SWITCHER - Fixed, clear and smaller on mobile */}
+      {/* BACKGROUND ORBS */}
+      <div className="bg-orbs">
+        <div className="orb orb-1"></div>
+        <div className="orb orb-2"></div>
+        <div className="orb orb-3"></div>
+      </div>
+
+      {/* LANGUAGE SWITCHER */}
       <div className="lang-btn-container">
         <button 
           onClick={toggleLanguage}
           className="lang-btn"
           aria-label="Toggle Language"
         >
-          <div className="icon-box">
-            <Languages className="w-5 h-5 md:w-6 md:h-6" />
-          </div>
-          <span className="px-2 font-bold text-sm md:text-base text-gray-800">
-            {currentLang === 'en' ? 'العربية' : 'English'}
+          <Languages className="w-5 h-5 mr-2" />
+          <span className="font-bold text-sm">
+            {currentLang === 'en' ? 'AR' : 'EN'}
           </span>
         </button>
       </div>
 
-      {/* DESKTOP NAVIGATION - Magic Curve Style (Top) */}
+      {/* DESKTOP NAVIGATION */}
       {!isMobile && (
         <div className="magic-nav-container">
           <nav className="magic-nav">
@@ -133,7 +138,7 @@ export default function Home() {
         </div>
       )}
 
-      {/* MOBILE NAVIGATION - Curve Sidebar Style (Right) */}
+      {/* MOBILE NAVIGATION - Sidebar with moving curve */}
       {isMobile && (
         <nav className="mobile-nav-sidebar">
           <ul>
@@ -144,16 +149,22 @@ export default function Home() {
                   scrollToSection(item.id);
                 }}>
                   <span className="icon"><item.icon className="w-6 h-6" /></span>
-                  <span className="title">{item.label}</span>
                 </a>
               </li>
             ))}
+            <div 
+              className="indicator" 
+              style={{ 
+                transform: `translateY(${activeIndex * 50}px)`,
+                top: '10px'
+              }}
+            ></div>
           </ul>
         </nav>
       )}
 
       {/* MAIN CONTENT */}
-      <main className="relative pt-24 md:pt-32">
+      <main className="relative z-10 pt-24 md:pt-32">
         <div id="hero" className="focus-section">
           <HeroSection />
         </div>
@@ -174,7 +185,7 @@ export default function Home() {
         </div>
       </main>
 
-      <footer className="bg-card border-t border-border py-12">
+      <footer className="relative z-10 bg-card/80 backdrop-blur-sm border-t border-border py-12">
         <div className="container text-center">
           <p className="text-muted-foreground">
             © {new Date().getFullYear()} {currentLang === 'ar' ? 'أكيل طلال محيوب عبده' : 'Akill Talal Mahyoub Abdo'}. {t('footer.rights')}
