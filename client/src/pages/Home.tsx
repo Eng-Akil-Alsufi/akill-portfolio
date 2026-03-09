@@ -5,7 +5,7 @@ import SkillsSection from "@/components/SkillsSection";
 import ExperienceSection from "@/components/ExperienceSection";
 import ContactSection from "@/components/ContactSection";
 import { useTranslation } from "react-i18next";
-import { Menu, X, Languages } from "lucide-react";
+import { Menu, X, Languages, User, Briefcase, Code, GraduationCap, Send } from "lucide-react";
 import { useEffect, useState, useRef } from "react";
 
 // Detect if device is mobile
@@ -33,12 +33,13 @@ export default function Home() {
   const hoverTimeoutRef = useRef<NodeJS.Timeout | null>(null);
   const elementListenersRef = useRef<Map<Element, { enter: () => void; leave: () => void }>>(new Map());
 
+  // Using standard Lucide icons directly to avoid "undefined" component errors
   const navItems = [
-    { href: "#about", label: t('nav.about'), id: "about", icon: <HeroSection.IconAbout className="w-6 h-6" /> },
-    { href: "#projects", label: t('nav.projects'), id: "projects", icon: <HeroSection.IconProjects className="w-6 h-6" /> },
-    { href: "#skills", label: t('nav.skills'), id: "skills", icon: <HeroSection.IconSkills className="w-6 h-6" /> },
-    { href: "#experience", label: t('nav.experience'), id: "experience", icon: <HeroSection.IconExperience className="w-6 h-6" /> },
-    { href: "#contact", label: t('nav.contact'), id: "contact", icon: <HeroSection.IconContact className="w-6 h-6" /> },
+    { href: "#about", label: t('nav.about'), id: "about", icon: <User className="w-6 h-6" /> },
+    { href: "#projects", label: t('nav.projects'), id: "projects", icon: <Code className="w-6 h-6" /> },
+    { href: "#skills", label: t('nav.skills'), id: "skills", icon: <Briefcase className="w-6 h-6" /> },
+    { href: "#experience", label: t('nav.experience'), id: "experience", icon: <GraduationCap className="w-6 h-6" /> },
+    { href: "#contact", label: t('nav.contact'), id: "contact", icon: <Send className="w-6 h-6" /> },
   ];
 
   // Smooth scroll with performance optimization
@@ -162,15 +163,16 @@ export default function Home() {
 
   return (
     <div className={`min-h-screen bg-background text-foreground ${isRtl ? 'rtl' : 'ltr'}`}>
-      {/* Language Switcher Floating Button */}
+      {/* Language Switcher Floating Button - Enhanced Shadow & Prominence */}
       <div className={`fixed bottom-8 ${isRtl ? 'left-8' : 'right-8'} z-[100] pointer-events-auto`}>
         <div 
-          className={`flex items-center bg-background/90 backdrop-blur-md border border-primary/40 rounded-full shadow-[0_10px_40px_rgba(0,0,0,0.5),0_0_20px_rgba(37,150,190,0.3)] lang-switcher-expand overflow-hidden group hover:border-primary hover:shadow-[0_0_30px_rgba(37,150,190,0.6)] ${isLangExpanded ? 'max-w-[240px] px-4' : 'max-w-[70px] px-0'}`}
+          className={`flex items-center bg-background/90 backdrop-blur-md border border-primary/40 rounded-full shadow-[0_15px_50px_rgba(0,0,0,0.6),0_0_25px_rgba(37,150,190,0.4)] lang-switcher-expand overflow-hidden group hover:border-primary hover:shadow-[0_0_40px_rgba(37,150,190,0.7)] ${isLangExpanded ? 'max-w-[240px] px-4' : 'max-w-[70px] px-0'}`}
           style={{ height: '70px' }}
         >
           <button
             onClick={() => setIsLangExpanded(!isLangExpanded)}
             className="flex items-center justify-center min-w-[70px] h-full transition-transform duration-500 group-hover:scale-110 pointer-events-auto"
+            aria-label="Toggle Language Menu"
           >
             <Languages className={`w-8 h-8 text-primary transition-transform duration-500 ${isLangExpanded ? 'rotate-180' : 'rotate-0'}`} />
           </button>
@@ -190,8 +192,8 @@ export default function Home() {
         </div>
       </div>
 
-      {/* Desktop Magic Navigation */}
-      <nav className="fixed top-0 left-0 right-0 z-50 hidden md:flex justify-center pt-6 pointer-events-none">
+      {/* Desktop Magic Navigation - Fixed at top with spacing */}
+      <nav className="fixed top-8 left-0 right-0 z-50 hidden md:flex justify-center pointer-events-none">
         <div className="magic-nav-container pointer-events-auto">
           <div className="magic-navigation">
             <ul className="relative flex">
@@ -201,6 +203,7 @@ export default function Home() {
                   className={`magic-list ${activeSection === item.id ? 'active' : ''}`}
                 >
                   <a href={item.href} className="flex flex-col items-center justify-center text-center">
+                    {/* Reversed: Text on Top, Icon on Bottom */}
                     <span className="magic-text">{item.label}</span>
                     <span className="magic-icon">
                       {item.icon}
@@ -220,7 +223,7 @@ export default function Home() {
         </div>
       </nav>
 
-      {/* Mobile Curve Menu */}
+      {/* Mobile Curve Menu - Curve-Tab style */}
       <div className="md:hidden">
         <div className={`mobile-curve-nav-overlay ${isMenuOpen ? 'active' : ''}`} onClick={() => setIsMenuOpen(false)}></div>
         <div className={`mobile-curve-navigation ${isMenuOpen ? 'active' : ''}`}>
@@ -244,7 +247,7 @@ export default function Home() {
         </div>
       </div>
 
-      <main className="pt-16">
+      <main className="pt-24 md:pt-32">
         <HeroSection />
         <AboutSection />
         <ProjectsSection />
