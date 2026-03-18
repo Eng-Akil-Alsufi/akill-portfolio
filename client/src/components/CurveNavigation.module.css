@@ -1,0 +1,186 @@
+/* Curve Navigation Styles */
+
+.navigationContainer {
+  position: fixed;
+  top: 1.5rem; /* مسافة بسيطة من رأس الصفحة */
+  left: 0;
+  right: 0;
+  z-index: 100;
+  display: flex;
+  justify-content: center;
+  pointer-events: none;
+}
+
+.navigationWrapper {
+  pointer-events: auto;
+  position: relative;
+}
+
+.navigationBox {
+  background: rgba(8, 8, 12, 0.8);
+  backdrop-filter: blur(16px);
+  border: 1px solid rgba(69, 39, 160, 0.2);
+  border-radius: 1rem;
+  padding: 0.75rem;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
+.navigationList {
+  position: relative;
+  display: flex;
+  gap: 0.5rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.navigationList.rtl {
+  flex-direction: row-reverse;
+}
+
+.navigationItem {
+  position: relative;
+  list-style: none;
+  cursor: pointer;
+  transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.navigationLink {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 4rem;
+  height: 4rem;
+  border-radius: 0.75rem;
+  text-decoration: none;
+  transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+  color: hsl(var(--muted-foreground, 220, 13%, 91%));
+}
+
+.navigationLink:hover {
+  color: hsl(var(--primary, 260, 89%, 56%));
+}
+
+.navigationLink.active {
+  color: hsl(var(--primary, 260, 89%, 56%));
+}
+
+.iconContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.navigationLink.active .iconContainer {
+  transform: translateY(1.2rem); /* الأيقونة تتحرك للأسفل */
+}
+
+.iconWrapper {
+  transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+  color: inherit;
+}
+
+.navigationLink:hover .iconWrapper {
+  color: hsl(var(--primary, 260, 89%, 56%));
+}
+
+.textLabel {
+  position: absolute;
+  font-size: 0.75rem;
+  font-weight: 600;
+  white-space: nowrap;
+  letter-spacing: 0.05em;
+  transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+  opacity: 0;
+  transform: translateY(0.5rem);
+  color: inherit;
+}
+
+.navigationLink.active .textLabel {
+  opacity: 1;
+  transform: translateY(-1.2rem); /* النص يظهر فوق الأيقونة */
+  color: hsl(var(--primary, 260, 89%, 56%));
+}
+
+/* Indicator Circle with Curve Effect */
+.indicator {
+  position: absolute;
+  top: 0;
+  width: 4rem;
+  height: 4rem;
+  background: rgba(69, 39, 160, 0.1);
+  border: 1px solid rgba(69, 39, 160, 0.3);
+  border-radius: 0.75rem;
+  transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Curved decorative elements */
+.indicator::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: -1.5rem;
+  width: 1.5rem;
+  height: 1.5rem;
+  background: transparent;
+  border-top-right-radius: 1.5rem;
+  box-shadow: inset 0.25rem -0.25rem 0 rgba(69, 39, 160, 0.3);
+  opacity: 0.5;
+  transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.indicator::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  right: -1.5rem;
+  width: 1.5rem;
+  height: 1.5rem;
+  background: transparent;
+  border-top-left-radius: 1.5rem;
+  box-shadow: inset -0.25rem -0.25rem 0 rgba(69, 39, 160, 0.3);
+  opacity: 0.5;
+  transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .navigationContainer {
+    display: none;
+  }
+}
+
+/* Animation for smooth transitions */
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.navigationBox {
+  animation: slideIn 0.6s ease-out;
+}
+
+/* Glow effect on active item */
+@keyframes glowPulse {
+  0%, 100% {
+    box-shadow: 0 0 10px rgba(69, 39, 160, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 20px rgba(69, 39, 160, 0.5);
+  }
+}
+
+.navigationLink.active {
+  animation: glowPulse 2s ease-in-out infinite;
+}
