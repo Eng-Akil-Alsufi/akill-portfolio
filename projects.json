@@ -272,37 +272,38 @@
     "status": "✅"
   },
   {
-  "id": 17,
-  "name": "student_task_manager",
-  "description": {
-    "en": "A professional web application for managing student tasks, built with Flask and MySQL. It features secure user authentication, role-based access control (Student and Admin), task management (add, edit, delete, prioritize, track status, set deadlines), profile management, multi-language support (Arabic/English), and a responsive design.",
-    "ar": "تطبيق ويب احترافي لإدارة مهام الطلاب، مبني باستخدام Flask و MySQL. يتميز بمصادقة آمنة للمستخدمين، والتحكم في الوصول بناءً على الأدوار (طالب ومسؤول)، وإدارة المهام (إضافة، تعديل، حذف، تحديد أولويات، تتبع الحالة، تحديد المواعيد النهائية)، وإدارة الملفات الشخصية، ودعم متعدد اللغات (العربية/الإنجليزية)، وتصميم متجاوب."
+    "id": 17,
+    "name": "student_task_manager",
+    "description": {
+      "en": "A professional web application for managing student tasks, built with Flask and MySQL. It features secure user authentication, role-based access control (Student and Admin), task management (add, edit, delete, prioritize, track status, set deadlines), profile management, multi-language support (Arabic/English), and a responsive design.",
+      "ar": "تطبيق ويب احترافي لإدارة مهام الطلاب، مبني باستخدام Flask و MySQL. يتميز بمصادقة آمنة للمستخدمين، والتحكم في الوصول بناءً على الأدوار (طالب ومسؤول)، وإدارة المهام (إضافة، تعديل، حذف، تحديد أولويات، تتبع الحالة، تحديد المواعيد النهائية)، وإدارة الملفات الشخصية، ودعم متعدد اللغات (العربية/الإنجليزية)، وتصميم متجاوب."
+    },
+    "url": "https://github.com/Eng-Akil-Alsufi/student_task_manager",
+    "languages": ["Python", "HTML", "CSS", "JavaScript", "SQL"],
+    "stars": 0,
+    "forks": 0,
+    "created_at": "2026-04-22T00:00:00Z",
+    "updated_at": "2026-05-01T00:00:00Z",
+    "topics": ["Flask", "MySQL", "Web Application", "Task Management", "Python"],
+    "homepage": "https://student-task-manager-jc5w.onrender.com/login",
+    "status": "✅"
   },
-  "url": "https://github.com/Eng-Akil-Alsufi/student_task_manager",
-  "languages": ["Python", "HTML", "CSS", "JavaScript", "SQL"],
-  "stars": 0,
-  "forks": 0,
-  "created_at": "2026-04-22T00:00:00Z",
-  "updated_at": "2026-05-01T00:00:00Z",
-  "topics": ["Flask", "MySQL", "Web Application", "Task Management", "Python"],
-  "homepage": "https://student-task-manager-jc5w.onrender.com/login",
-  "status": "✅"},
   {
     "id": 18,
     "name": "student_task_manager_v2",
     "description": {
       "en": "The definitive second-generation evolution of the Student Task Manager, meticulously engineered as a cutting-edge upgrade featuring a state-of-the-art UI/UX and high-performance architecture. This iteration introduces an innovative Glassmorphism aesthetic for desktop and a fluid Magic Menu for mobile, delivering unparalleled usability across all platforms. Beyond its core functionality, the system integrates enterprise-grade security protocols and a smart administrative ecosystem, positioning it as a premier digital solution for professional academic productivity.",
-      "ar": "يمثل هذا المشروع الجيل الثاني المطور والنسخة الأحدث من نظام إدارة مهام الطلاب، حيث تم تعزيزه بواجهة مستخدم جذابة وحديثة وهندسة برمجية متكاملة تتسم بالكفاءة العالية. تقدم هذه النسخة تجربة بصرية مبتكرة تعتمد على نمط Glassmorphism لسطح المكتب ونظام Magic Menu الانسيابي للهواتف، مما يضمن كفاءة تشغيلية وتجربة مستخدم استثنائية. وبالإضافة إلى الوظائف الأساسية، يدمج النظام معايير أمان متقدمة وبيئة إدارية ذكية، ليبرز كحل رقمي رائد لتعزيز الإنتاجية الأكاديمية بأسلوب احترافي ومبتكر."
+      "ar": "يمثل هذا المشروع الجيل الثاني المطور والنسخة الأحدث من نظام إدارة مهام الطلاب، حيث تم تعزيزه بواجهة مستخدم فائقة الحداثة وهندسة برمجية متكاملة تتسم بالكفاءة العالية. تقدم هذه النسخة تجربة بصرية مبتكرة تعتمد على نمط Glassmorphism لسطح المكتب ونظام Magic Menu الانسيابي للهواتف، مما يضمن كفاءة تشغيلية وتجربة مستخدم استثنائية. وبالإضافة إلى الوظائف الأساسية، يدمج النظام معايير أمان متقدمة وبيئة إدارية ذكية، ليبرز كحل رقمي رائد لتعزيز الإنتاجية الأكاديمية بأسلوب احترافي ومبتكر."
     },
     "url": "https://github.com/Eng-Akil-Alsufi/student_task_manager_v2",
     "languages": ["Python", "HTML", "CSS", "JavaScript", "SQL"],
     "stars": 0,
     "forks": 0,
-    "created_at": "2026-05-05T00:00:00Z",
+    "created_at": "2026-05-21T00:00:00Z",
     "updated_at": "2026-05-21T00:00:00Z",
     "topics": ["Flask", "MySQL", "UI-UX", "Innovation", "Web Application"],
     "homepage": "https://student-task-manager-v2.onrender.com/",
     "status": "✅"
   }
-
+  
 ]
