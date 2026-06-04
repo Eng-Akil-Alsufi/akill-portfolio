@@ -3,9 +3,7 @@
 
   <head>
     <meta charset="UTF-8" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1.0, maximum-scale=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5" />
     <title>Akill Talal - Portfolio</title>
     <meta name="description" content="Professional portfolio of Akill Talal Mahyoub Abdo - Software Engineer specializing in ASP.NET Core, Web Development, and AI applications." />
     <meta name="keywords" content="Software Engineer, Web Developer, ASP.NET Core, Python, Java, Portfolio" />
@@ -13,13 +11,26 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
-    <script type="module" crossorigin src="/akill-portfolio/assets/index-CQ8szcqp.js"></script>
-    <link rel="stylesheet" crossorigin href="/akill-portfolio/assets/index-CWhtqNwC.css">
+    <!--
+      Theme init: runs synchronously BEFORE React mounts.
+      Prevents dark-mode FOUC on Chrome mobile and all browsers.
+    -->
+    <script>
+      (function () {
+        try {
+          var stored = localStorage.getItem('theme');
+          if (stored === 'dark') {
+            document.documentElement.classList.add('dark');
+          }
+        } catch (e) {}
+      })();
+    </script>
+    <script type="module" crossorigin src="/akill-portfolio/assets/index-B-nufrIt.js"></script>
+    <link rel="stylesheet" crossorigin href="/akill-portfolio/assets/index-ByK4Ylyd.css">
   </head>
 
   <body>
     <div id="root"></div>
-
   </body>
 
 </html>
