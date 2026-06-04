@@ -7,7 +7,7 @@
       "ar": "مشروع الحجز والسفر في المساق العملي لتكنولوجيا الويب"
     },
     "url": "https://github.com/Eng-Akil-Alsufi/Project_web2_Travel",
-    "languages": ["HTML", "CSS", "JavaScript"], 
+    "languages": ["HTML", "CSS", "JavaScript", "MySQL"], 
     "stars": 0,
     "forks": 0,
     "created_at": "2023-05-30T23:00:55Z",
@@ -92,7 +92,7 @@
       "ar": "نظام حجز مواعيد شامل وسهل الاستخدام تم تطويره باستخدام PHP و MySQL و HTML و CSS و JavaScript. يسهل هذا النظام الجدولة والإدارة السلسة للمواعيد لكل من المرضى والموظفين الإداريين."
     },
     "url": "https://github.com/Eng-Akil-Alsufi/appointment_system",
-    "languages": ["PHP","CSS","JavaScript"],
+    "languages": ["PHP","CSS","JavaScript", "MySQL"],
     "stars": 0,
     "forks": 0,
     "created_at": "2025-12-27T20:49:11Z",
@@ -109,7 +109,7 @@
       "ar": "نظام احترافي قائم على الويب لإدارة المستلزمات الطبية والمخزون تم بناؤه باستخدام PHP و MySQL. تشمل الميزات تتبع المخزون، وإدارة الموردين، ومعالجة الطلبات، والتقارير الآلية مع دعم لغات متعددة. تم تطويره بواسطة عقيل الصوفي."
     },
     "url": "https://github.com/Eng-Akil-Alsufi/medical-supplies-management",
-    "languages": ["PHP","CSS","JavaScript"],
+    "languages": ["PHP","CSS","JavaScript", "MySQL"],
     "stars": 0,
     "forks": 0,
     "created_at": "2025-12-27T22:26:03Z",
@@ -126,7 +126,7 @@
       "ar": "Research Hub: تطبيق ويب شامل يعتمد على Flask لإدارة الأوراق البحثية الأكاديمية ومشاريع الطلاب وتحليلات الأقسام مع التحكم في الوصول القائم على الأدوار."
     },
     "url": "https://github.com/Eng-Akil-Alsufi/research-hub-flask",
-    "languages": ["HTML","Python","CSS","JavaScript"],
+    "languages": ["HTML","Python","CSS","JavaScript", "MySQL"],
     "stars": 0,
     "forks": 0,
     "created_at": "2025-12-28T20:40:16Z",
@@ -143,7 +143,7 @@
       "ar": "نظام ذكي لإدارة مواقف السيارات تم بناؤه باستخدام Flask، يتميز بتتبع المواقف في الوقت الفعلي، والحجز الآلي، ولوحة تحكم بديهية لحلول مواقف السيارات الحضرية الفعالة."
     },
     "url": "https://github.com/Eng-Akil-Alsufi/smart-parking-flask",
-    "languages": ["HTML","Python","CSS","JavaScript"],
+    "languages": ["HTML","Python","CSS","JavaScript", "MySQL"],
     "stars": 0,
     "forks": 0,
     "created_at": "2025-12-28T21:55:10Z",
@@ -194,7 +194,7 @@
       "ar": "نظام إدارة الموظفين تم بناؤه باستخدام Java Swing و MySQL، يتميز بعمليات CRUD الكاملة وواجهة رسومية سهلة الاستخدام."
     },
     "url": "https://github.com/Eng-Akil-Alsufi/EmployeeManagementSystem",
-    "languages": ["Java"],
+    "languages": ["Java", "MySQL"],
     "stars": 0,
     "forks": 0,
     "created_at": "2026-01-01T22:34:47Z",
@@ -262,7 +262,7 @@
       "ar": "نظام تحكم شامل للكافتيريا تم بناؤه باستخدام Java و MySQL، مصمم لتبسيط الطلبات وإدارة المخزون وتتبع المبيعات بواجهة رسومية احترافية."
     },
     "url": "https://github.com/Eng-Akil-Alsufi/Cafeteria-Management-System",
-    "languages": ["Java"],
+    "languages": ["Java", "MySQL"],
     "stars": 0,
     "forks": 0,
     "created_at": "2026-01-04T23:31:15Z",
@@ -279,7 +279,7 @@
       "ar": "تطبيق ويب احترافي لإدارة مهام الطلاب، مبني باستخدام Flask و MySQL. يتميز بمصادقة آمنة للمستخدمين، والتحكم في الوصول بناءً على الأدوار (طالب ومسؤول)، وإدارة المهام (إضافة، تعديل، حذف، تحديد أولويات، تتبع الحالة، تحديد المواعيد النهائية)، وإدارة الملفات الشخصية، ودعم متعدد اللغات (العربية/الإنجليزية)، وتصميم متجاوب."
     },
     "url": "https://github.com/Eng-Akil-Alsufi/student_task_manager",
-    "languages": ["Python", "HTML", "CSS", "JavaScript", "SQL"],
+    "languages": ["Python", "HTML", "CSS", "JavaScript", "MySQL"],
     "stars": 0,
     "forks": 0,
     "created_at": "2026-04-22T00:00:00Z",
@@ -293,7 +293,7 @@
     "name": "student_task_manager_v2",
     "description": {
       "en": "The definitive second-generation evolution of the Student Task Manager, meticulously engineered as a cutting-edge upgrade featuring a state-of-the-art UI/UX and high-performance architecture. This iteration introduces an innovative Glassmorphism aesthetic for desktop and a fluid Magic Menu for mobile, delivering unparalleled usability across all platforms. Beyond its core functionality, the system integrates enterprise-grade security protocols and a smart administrative ecosystem, positioning it as a premier digital solution for professional academic productivity.",
-      "ar": "يمثل هذا المشروع الجيل الثاني المطور والنسخة الأحدث من نظام إدارة مهام الطلاب، حيث تم تعزيزه بواجهة مستخدم فائقة الحداثة وهندسة برمجية متكاملة تتسم بالكفاءة العالية. تقدم هذه النسخة تجربة بصرية مبتكرة تعتمد على نمط Glassmorphism لسطح المكتب ونظام Magic Menu الانسيابي للهواتف، مما يضمن كفاءة تشغيلية وتجربة مستخدم استثنائية. وبالإضافة إلى الوظائف الأساسية، يدمج النظام معايير أمان متقدمة وبيئة إدارية ذكية، ليبرز كحل رقمي رائد لتعزيز الإنتاجية الأكاديمية بأسلوب احترافي ومبتكر."
+      "ar": "يمثل هذا المشروع الجيل الثاني المطور والنسخة الأحدث من نظام إدارة مهام الطلاب، حيث تم تعزيزه بواجهة مستخدم حديثة وهندسة برمجية متكاملة تتسم بالكفاءة العالية. تقدم هذه النسخة تجربة بصرية مبتكرة تعتمد على نمط Glassmorphism لسطح المكتب ونظام Magic Menu الانسيابي للهواتف، مما يضمن كفاءة تشغيلية وتجربة مستخدم استثنائية. وبالإضافة إلى الوظائف الأساسية، يدمج النظام معايير أمان متقدمة وبيئة إدارية ذكية، ليبرز كحل رقمي رائد لتعزيز الإنتاجية الأكاديمية بأسلوب احترافي ومبتكر."
     },
     "url": "https://github.com/Eng-Akil-Alsufi/student_task_manager_v2",
     "languages": ["Python", "HTML", "CSS", "JavaScript", "SQL"],
@@ -303,6 +303,23 @@
     "updated_at": "2026-05-21T00:00:00Z",
     "topics": ["Flask", "MySQL", "UI-UX", "Innovation", "Web Application"],
     "homepage": "https://student-task-manager-v2.onrender.com/",
+    "status": "✅"
+  },
+  {
+    "id": 19,
+    "name": "currency_converter_java_app",
+    "description": {
+      "en": "A simple and efficient Android application built with Java for seamless currency conversion between Saudi Riyal (SAR) and US Dollar (USD).",
+      "ar": "تطبيق أندرويد بسيط وفعال مبني بلغة Java لتحويل العملات بسلاسة بين الريال السعودي (SAR) والدولار الأمريكي (USD)."
+    },
+    "url": "https://github.com/Eng-Akil-Alsufi/currency_converter_java_app",
+    "languages": ["Java", "XML"],
+    "stars": 0,
+    "forks": 0,
+    "created_at": "2026-05-30T00:00:00Z",
+    "updated_at": "2026-05-30T00:00:00Z",
+    "topics": ["Android", "Java", "Currency Converter", "Mobile App"],
+    "homepage": "https://appetize.io/embed/b_32nubgh23tqcju22r6ay4umsma",
     "status": "✅"
   }
   
