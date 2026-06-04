@@ -12,21 +12,29 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
     <!--
-      Theme init: runs synchronously BEFORE React mounts.
-      Prevents dark-mode FOUC on Chrome mobile and all browsers.
+      Runs synchronously BEFORE React mounts.
+      1. Applies dark/light theme class to prevent FOUC on Chrome mobile.
+      2. Restores language direction so Arabic pages don't flash LTR on reload.
     -->
     <script>
       (function () {
         try {
-          var stored = localStorage.getItem('theme');
-          if (stored === 'dark') {
+          /* Theme */
+          var theme = localStorage.getItem('theme');
+          if (theme === 'dark') {
             document.documentElement.classList.add('dark');
+          }
+          /* Language direction — default is en/ltr (already in HTML tag) */
+          var lang = localStorage.getItem('i18nextLng');
+          if (lang && lang.startsWith('ar')) {
+            document.documentElement.dir  = 'rtl';
+            document.documentElement.lang = 'ar';
           }
         } catch (e) {}
       })();
     </script>
-    <script type="module" crossorigin src="/akill-portfolio/assets/index-2nqg9xBw.js"></script>
-    <link rel="stylesheet" crossorigin href="/akill-portfolio/assets/index-93I93z2p.css">
+    <script type="module" crossorigin src="/akill-portfolio/assets/index-BVmWi0ox.js"></script>
+    <link rel="stylesheet" crossorigin href="/akill-portfolio/assets/index-Byef3sDJ.css">
   </head>
 
   <body>
