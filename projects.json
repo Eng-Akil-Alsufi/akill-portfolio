@@ -1,19 +1,19 @@
 [
   {
     "id": 1,
-    "name": "Project_web2_Travel",
+    "name": "medical-supplies-management",
     "description": {
-      "en": "Reservation and travel project in the practical course in web technology",
-      "ar": "مشروع الحجز والسفر في المساق العملي لتكنولوجيا الويب"
+      "en": "A professional web-based Medical Supplies and Inventory Management System built with PHP and MySQL. Features include stock tracking, supplier management, request handling, and automated reporting with multi-languages support. Developed by Akil Alsufi.",
+      "ar": "نظام احترافي قائم على الويب لإدارة المستلزمات الطبية والمخزون تم بناؤه باستخدام PHP و MySQL. تشمل الميزات تتبع المخزون، وإدارة الموردين، ومعالجة الطلبات، والتقارير الآلية مع دعم لغات متعددة. تم تطويره بواسطة عقيل الصوفي."
     },
-    "url": "https://github.com/Eng-Akil-Alsufi/Project_web2_Travel",
-    "languages": ["HTML", "CSS", "JavaScript", "MySQL"], 
+    "url": "https://github.com/Eng-Akil-Alsufi/medical-supplies-management",
+    "languages": ["PHP","CSS","JavaScript", "MySQL"],
     "stars": 0,
     "forks": 0,
-    "created_at": "2023-05-30T23:00:55Z",
-    "updated_at": "2025-12-27T03:16:00Z",
+    "created_at": "2025-12-27T22:26:03Z",
+    "updated_at": "2025-12-27T22:38:50Z",
     "topics": [],
-    "homepage": null,
+    "homepage": "https://medical-supplies-management.onrender.com",
     "status": "✅"
   },
   {
@@ -103,19 +103,19 @@
   },
   {
     "id": 7,
-    "name": "medical-supplies-management",
+    "name": "Project_web2_Travel",
     "description": {
-      "en": "A professional web-based Medical Supplies and Inventory Management System built with PHP and MySQL. Features include stock tracking, supplier management, request handling, and automated reporting with multi-languages support. Developed by Akil Alsufi.",
-      "ar": "نظام احترافي قائم على الويب لإدارة المستلزمات الطبية والمخزون تم بناؤه باستخدام PHP و MySQL. تشمل الميزات تتبع المخزون، وإدارة الموردين، ومعالجة الطلبات، والتقارير الآلية مع دعم لغات متعددة. تم تطويره بواسطة عقيل الصوفي."
+      "en": "Reservation and travel project in the practical course in web technology",
+      "ar": "مشروع الحجز والسفر في المساق العملي لتكنولوجيا الويب"
     },
-    "url": "https://github.com/Eng-Akil-Alsufi/medical-supplies-management",
-    "languages": ["PHP","CSS","JavaScript", "MySQL"],
+    "url": "https://github.com/Eng-Akil-Alsufi/Project_web2_Travel",
+    "languages": ["HTML", "CSS", "JavaScript", "MySQL"], 
     "stars": 0,
     "forks": 0,
-    "created_at": "2025-12-27T22:26:03Z",
-    "updated_at": "2025-12-27T22:38:50Z",
+    "created_at": "2023-05-30T23:00:55Z",
+    "updated_at": "2025-12-27T03:16:00Z",
     "topics": [],
-    "homepage": "https://medical-supplies-management.onrender.com",
+    "homepage": null,
     "status": "✅"
   },
   {
@@ -321,6 +321,22 @@
     "topics": ["Android", "Java", "Currency Converter", "Mobile App"],
     "homepage": "https://appetize.io/embed/b_32nubgh23tqcju22r6ay4umsma",
     "status": "✅"
+  },
+    {
+    "id": 20,
+    "name": "Alsinalazeem",
+    "description": {
+      "en": "A comprehensive, high-performance digital media platform featuring a robust administrative ecosystem for seamless content orchestration. It integrates real-time live coverage, cinematic UI components, and advanced SEO frameworks. The platform offers a complete suite of services including automated newsletters, push notifications, and a multi-tiered management dashboard, all optimized for maximum speed and user engagement.",
+      "ar": "منصة إعلامية رقمية شاملة وعالية الأداء تتميز بنظام إداري قوي لتنظيم المحتوى بسلاسة. تدمج المنصة التغطية الحية المباشرة، ومكونات واجهة مستخدم سينمائية، وأطر عمل متقدمة لتحسين محركات البحث. توفر المنصة مجموعة كاملة من الخدمات تشمل النشرات الإخبارية الآلية، والإشعارات الفورية، ولوحة تحكم إدارية متعددة المستويات، وكلها محسنة بأعلى معايير السرعة وتفاعل المستخدم."
+    },
+    "url": "https://github.com/Eng-Akil-Alsufi/Alsinalazeem",
+    "languages": ["PHP", "JavaScript", "SQL", "Tailwind CSS"],
+    "stars": 0,
+    "forks": 0,
+    "created_at": "2026-06-30T00:00:00Z",
+    "updated_at": "2026-07-30T00:00:00Z",
+    "topics": ["PHP", "Digital Media", "News Platform", "Tailwind CSS", "SEO", "Admin Dashboard", "Live Coverage", "Content Management"],
+    "homepage": "https://alsinalazeem.net/",
+    "status": "✅"
   }
-  
 ]
