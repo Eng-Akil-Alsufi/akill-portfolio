@@ -312,8 +312,7 @@
     "updated_at": "2026-01-04T22:29:34Z",
     "topics": [],
     "homepage": null,
-    "status": "✅",
-    "download": "https://github.com/Eng-Akil-Alsufi/AI-Python-Games/archive/refs/heads/main.zip"
+    "status": "✅"
   },
   {
     "id": 16,
@@ -416,8 +415,7 @@
       "Mobile App"
     ],
     "homepage": "https://appetize.io/embed/b_32nubgh23tqcju22r6ay4umsma",
-    "status": "✅",
-    "download": "https://github.com/Eng-Akil-Alsufi/currency_converter_java_app/archive/refs/heads/main.zip"
+    "status": "✅"
   },
   {
     "id": 20,
@@ -466,8 +464,8 @@
     ],
     "stars": 0,
     "forks": 0,
-    "created_at": "",
-    "updated_at": "",
+    "created_at": "2026-06-30T00:00:00Z",
+    "updated_at": "2026-10-30T00:00:00Z",
     "topics": [
       "React",
       "JavaScript",
